@@ -3,41 +3,60 @@ package pl.edu.wat.recipeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.navigation.compose.rememberNavController
+import pl.edu.wat.recipeapp.navigation.NavigationRoute
+import pl.edu.wat.recipeapp.navigation.NavigationView
 import pl.edu.wat.recipeapp.ui.theme.RecipeAppTheme
+import pl.edu.wat.recipeapp.viewcomponents.NavigationBarView
+import pl.edu.wat.recipeapp.viewcomponents.NavigationItem
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             RecipeAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                val navController = rememberNavController()
+                Scaffold(
+                    bottomBar = {
+                        NavigationBarView(
+                            items = listOf(
+                                NavigationItem(
+                                    name = "Home",
+                                    route = NavigationRoute.Home,
+                                    icon = Icons.Default.Home
+                                ),
+                                NavigationItem(
+                                    name = "Create",
+                                    route = NavigationRoute.CreateRecipe,
+                                    icon = Icons.Default.Create
+                                ),
+                                NavigationItem(
+                                    name = "Shopping",
+                                    route = NavigationRoute.ShoppingList,
+                                    icon = Icons.Default.ShoppingCart
+                                ),
+                                NavigationItem(
+                                    name = "Profile",
+                                    route = NavigationRoute.Profile,
+                                    icon = Icons.Default.Person
+                                )
+                            ),
+                            navController = navController,
+                            onItemClick = {
+                                navController.navigate(it.route.rawRoute)
+                            }
+                        )
+                    }
                 ) {
-                    Greeting("Android")
+                    NavigationView(navController = navController)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    RecipeAppTheme {
-        Greeting("Android")
     }
 }
