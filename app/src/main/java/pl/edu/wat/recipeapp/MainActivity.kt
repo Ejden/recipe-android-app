@@ -10,12 +10,14 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import pl.edu.wat.recipeapp.navigation.NavigationRoute
 import pl.edu.wat.recipeapp.navigation.NavigationView
 import pl.edu.wat.recipeapp.ui.theme.RecipeAppTheme
 import pl.edu.wat.recipeapp.viewcomponents.NavigationBarView
 import pl.edu.wat.recipeapp.viewcomponents.NavigationItem
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
