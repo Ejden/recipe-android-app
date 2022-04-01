@@ -37,6 +37,7 @@ fun FirstRecipeItemView(
 ) {
     Column(
         modifier = Modifier
+            .width(200.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.spaghetti_bolognese),

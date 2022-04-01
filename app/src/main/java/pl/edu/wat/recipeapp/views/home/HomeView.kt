@@ -1,6 +1,9 @@
 package pl.edu.wat.recipeapp.views.home
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Scaffold
@@ -9,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.collect
 import pl.edu.wat.recipeapp.domain.Recipe
@@ -31,7 +35,7 @@ private val items = listOf(
     Recipe(
         id = RecipeId(UUID.randomUUID()),
         name = "Spaghetti bolognese",
-        difficulty = RecipeDifficulty.MEDIUM,
+        difficulty = RecipeDifficulty.EASY,
         cookingTime = 40,
         portions = 4
     ),
@@ -104,7 +108,9 @@ fun HomeView(
                 }
                 if (items.size > 1) {
                     items(items.size - 1) { index ->
-                        RecipeItemView(recipe = items[index + 1])
+                        RecipeItemView(recipe = items[index + 1]) {
+                            viewModel.onEvent(it)
+                        }
                     }
                 }
             }
