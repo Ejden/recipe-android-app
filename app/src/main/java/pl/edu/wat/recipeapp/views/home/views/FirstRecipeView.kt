@@ -41,7 +41,9 @@ fun FirstRecipeItemView(
         Image(
             painter = painterResource(id = R.drawable.spaghetti_bolognese),
             contentDescription = recipe.name,
-            modifier = Modifier.fillMaxHeight(0.8f),
+            modifier = Modifier
+                .fillMaxHeight(0.8f)
+                .clickable { onRecipeClick(recipe) },
             alignment = Alignment.Center
         )
         Box(

@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.collect
 import pl.edu.wat.recipeapp.domain.Recipe
 import pl.edu.wat.recipeapp.domain.RecipeDifficulty
 import pl.edu.wat.recipeapp.domain.RecipeId
+import pl.edu.wat.recipeapp.util.UIEvent
 import pl.edu.wat.recipeapp.views.home.views.EmptyRecipesView
 import pl.edu.wat.recipeapp.views.home.views.FirstRecipeItemView
 import pl.edu.wat.recipeapp.views.home.views.RecipeItemView
@@ -78,15 +79,13 @@ private val items = listOf(
 
 @Composable
 fun HomeView(
+    onNavigate: (UIEvent.Navigate) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val recipes = viewModel.recipes.collectAsState(initial = emptyList())
     val scaffoldState = rememberScaffoldState()
-    val scrollState = rememberScrollState()
     LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect { event ->
-            
-        }
+        viewModel.uiEvent.collect { event -> handleEvent(event, onNavigate) }
     }
     Scaffold(
         scaffoldState = scaffoldState
@@ -111,4 +110,11 @@ fun HomeView(
             }
         }
     }
+}
+
+private fun handleEvent(
+    event: UIEvent,
+    onNavigateEventCallback: (UIEvent.Navigate) -> Unit
+) = when (event) {
+    is UIEvent.Navigate -> onNavigateEventCallback(event)
 }
