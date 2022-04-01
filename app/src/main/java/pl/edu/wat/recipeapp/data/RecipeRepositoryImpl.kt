@@ -3,6 +3,7 @@ package pl.edu.wat.recipeapp.data
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import pl.edu.wat.recipeapp.domain.Recipe
+import pl.edu.wat.recipeapp.domain.RecipeDifficulty
 import pl.edu.wat.recipeapp.domain.RecipeId
 import pl.edu.wat.recipeapp.domain.RecipeRepository
 import java.util.UUID
@@ -28,7 +29,7 @@ class RecipeRepositoryImpl(private val repository: RecipeRoomRepository) : Recip
 private fun Recipe.toEntity() = RecipeEntity(
     id = id?.raw!!,
     name = name,
-    difficulty = difficulty,
+    difficulty = difficulty.name,
     cookingTime = cookingTime,
     portions = portions
 )
@@ -36,7 +37,7 @@ private fun Recipe.toEntity() = RecipeEntity(
 private fun RecipeEntity.toDomain() = Recipe(
     id = RecipeId(id),
     name = name,
-    difficulty = difficulty,
+    difficulty = RecipeDifficulty.valueOf(difficulty),
     cookingTime = cookingTime,
     portions = portions
 )

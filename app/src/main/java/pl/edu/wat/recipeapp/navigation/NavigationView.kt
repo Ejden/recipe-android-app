@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import pl.edu.wat.recipeapp.views.createrecipe.CreateRecipeView
 import pl.edu.wat.recipeapp.views.home.HomeView
 import pl.edu.wat.recipeapp.views.profile.ProfileView
+import pl.edu.wat.recipeapp.views.recipe.RecipeView
 import pl.edu.wat.recipeapp.views.shopping.ShoppingListView
 
 @Composable
@@ -23,6 +24,9 @@ fun NavigationView(navController: NavHostController) {
         }
         composable(route = NavigationRoute.Profile.rawRoute) {
             ProfileView()
+        }
+        composable(route = NavigationRoute.Recipe.rawRoute) {
+            RecipeView()
         }
     }
 }
