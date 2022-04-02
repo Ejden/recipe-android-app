@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,13 +38,15 @@ fun FirstRecipeItemView(
 ) {
     Column(
         modifier = Modifier
-            .width(200.dp)
+            .fillMaxWidth()
+            .height(550.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.spaghetti_bolognese),
+            contentScale = ContentScale.Crop,
             contentDescription = recipe.name,
             modifier = Modifier
-                .fillMaxHeight(0.8f)
+                .fillMaxHeight(0.85f)
                 .clickable { onRecipeClick(recipe) },
             alignment = Alignment.Center
         )

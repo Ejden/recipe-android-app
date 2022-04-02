@@ -111,8 +111,7 @@ fun RecipeItemView(
         }
         Text(
             text = recipe.name,
-            style = MaterialTheme.typography.h2,
-            color = White
+            style = MaterialTheme.typography.h3
         )
     }
 }
