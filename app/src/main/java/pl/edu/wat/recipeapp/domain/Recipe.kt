@@ -10,10 +10,10 @@ data class Recipe(
     val portions: Int
 )
 
-enum class RecipeDifficulty {
-    EASY,
-    MEDIUM,
-    HARD
+enum class RecipeDifficulty(val value: Int) {
+    EASY(1),
+    MEDIUM(2),
+    HARD(3);
 }
 
 @JvmInline

@@ -14,7 +14,9 @@ import pl.edu.wat.recipeapp.views.shopping.ShoppingListView
 fun NavigationView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = NavigationRoute.Home.rawRoute) {
         composable(route = NavigationRoute.Home.rawRoute) {
-            HomeView()
+            HomeView(onNavigate = {
+                navController.navigate(it.route.rawRoute)
+            })
         }
         composable(route = NavigationRoute.CreateRecipe.rawRoute) {
             CreateRecipeView()
