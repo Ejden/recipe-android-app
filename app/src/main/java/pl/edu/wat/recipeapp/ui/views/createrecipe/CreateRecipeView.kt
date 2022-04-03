@@ -1,4 +1,4 @@
-package pl.edu.wat.recipeapp.views.createrecipe
+package pl.edu.wat.recipeapp.ui.views.createrecipe
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

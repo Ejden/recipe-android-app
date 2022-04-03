@@ -1,12 +1,8 @@
-package pl.edu.wat.recipeapp.views.home
+package pl.edu.wat.recipeapp.ui.views.home
 
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -20,9 +16,9 @@ import pl.edu.wat.recipeapp.domain.Recipe
 import pl.edu.wat.recipeapp.domain.RecipeDifficulty
 import pl.edu.wat.recipeapp.domain.RecipeId
 import pl.edu.wat.recipeapp.util.UIEvent
-import pl.edu.wat.recipeapp.views.home.views.EmptyRecipesView
-import pl.edu.wat.recipeapp.views.home.views.FirstRecipeItemView
-import pl.edu.wat.recipeapp.views.home.views.RecipeItemView
+import pl.edu.wat.recipeapp.ui.views.home.views.EmptyRecipesView
+import pl.edu.wat.recipeapp.ui.views.home.views.FirstRecipeItemView
+import pl.edu.wat.recipeapp.ui.views.home.views.RecipeItemView
 import java.util.UUID
 
 private val items = listOf(
@@ -92,6 +88,7 @@ fun HomeView(
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event -> handleEvent(event, onNavigate) }
     }
+
     Scaffold(
         scaffoldState = scaffoldState,
         modifier = Modifier.padding(bottom = 60.dp)
@@ -125,4 +122,5 @@ private fun handleEvent(
     onNavigateEventCallback: (UIEvent.Navigate) -> Unit
 ) = when (event) {
     is UIEvent.Navigate -> onNavigateEventCallback(event)
+    else -> Unit
 }

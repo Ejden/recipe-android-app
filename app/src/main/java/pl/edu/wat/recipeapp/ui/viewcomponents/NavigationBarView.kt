@@ -1,11 +1,10 @@
-package pl.edu.wat.recipeapp.viewcomponents
+package pl.edu.wat.recipeapp.ui.viewcomponents
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -13,7 +12,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import pl.edu.wat.recipeapp.navigation.NavigationRoute
 import pl.edu.wat.recipeapp.ui.theme.Blue
-import pl.edu.wat.recipeapp.ui.theme.DarkBlack
 import pl.edu.wat.recipeapp.ui.theme.DarkGray
 import pl.edu.wat.recipeapp.ui.theme.White
 

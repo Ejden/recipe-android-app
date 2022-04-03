@@ -7,4 +7,6 @@ sealed class UIEvent {
         val route: NavigationRoute,
         val args: List<String> = emptyList()
     ): UIEvent()
+
+    object GoBack : UIEvent()
 }

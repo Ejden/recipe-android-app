@@ -2,4 +2,11 @@
     <string name="app_name">Recipe App</string>
     <string name="empty_recipe_list">You have no recipes</string>
     <string name="create_recipe_msg">Add recipes using Create Screen from bottom menu</string>
+    <string name="recipe_loading_msg">Loading…</string>
+    <string name="start_cooking">Start cooking</string>
+    <string name="add_to_fav">Add to favourite</string>
+    <string name="rem_from_fav">Remove from favourite</string>
+    <string name="cooking">Cooking</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="pricing">Pricing</string>
 </resources>

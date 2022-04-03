@@ -6,11 +6,14 @@ sealed class NavigationRoute(val rawRoute: String) {
     object ShoppingList : NavigationRoute("shopping")
     object Profile : NavigationRoute("profile")
     object Recipe : NavigationRoute("recipe")
+    object DeveloperMenu : NavigationRoute("developer_menu")
 
-    fun withArgs(vararg args: String) = buildString {
+    fun withArgs(args: List<Any>) = buildString {
         append(rawRoute)
         args.forEach { argument ->
             append("/$argument")
         }
     }
+
+    fun withoutArgs() = rawRoute
 }
