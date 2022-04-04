@@ -25,7 +25,7 @@ private val defaultRecipe = Recipe(
     difficulty = RecipeDifficulty.EASY,
     cookingTime = 80,
     portions = 2,
-    favourite = true,
+    isFavourite = true,
     pricing = RecipePricing.MEDIUM_PRICED
 )
 
@@ -47,7 +47,7 @@ class RecipeViewModel @Inject constructor(
         val recipeId = RecipeId.fromString(savedStateHandle.get<String>("recipeId")!!)
         viewModelScope.launch {
             recipe = defaultRecipe
-            isFavouriteRecipe = defaultRecipe.favourite
+            isFavouriteRecipe = defaultRecipe.isFavourite
         }
     }
 
@@ -60,13 +60,13 @@ class RecipeViewModel @Inject constructor(
     }
 
     private fun onAddToFavouriteEvent(event: RecipeEvent.AddToFavourite) {
-        recipe = defaultRecipe.copy(favourite = true)
-        isFavouriteRecipe = recipe!!.favourite
+        recipe = defaultRecipe.copy(isFavourite = true)
+        isFavouriteRecipe = recipe!!.isFavourite
     }
 
     private fun onRemoveFromFavourite(event: RecipeEvent.RemoveFromFavourite) {
-        recipe = defaultRecipe.copy(favourite = false)
-        isFavouriteRecipe = recipe!!.favourite
+        recipe = defaultRecipe.copy(isFavourite = false)
+        isFavouriteRecipe = recipe!!.isFavourite
     }
 
     private fun onAddToShoppingListEvent(event: RecipeEvent.AddToShoppingList) {

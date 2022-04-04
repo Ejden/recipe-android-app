@@ -17,9 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.collect
 import pl.edu.wat.recipeapp.R
-import pl.edu.wat.recipeapp.ui.theme.LightGray
 import pl.edu.wat.recipeapp.ui.theme.VeryLightGray
-import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.views.recipe.views.RecipeActionPanelView
 import pl.edu.wat.recipeapp.ui.views.recipe.views.RecipeDifficultyView
 import pl.edu.wat.recipeapp.ui.views.recipe.views.RecipeImageBoxView

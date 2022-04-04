@@ -93,7 +93,7 @@ fun HomeView(
         scaffoldState = scaffoldState,
         modifier = Modifier.padding(bottom = 60.dp)
     ) {
-        if (!recipes.value.isEmpty()) {
+        if (recipes.value.isEmpty()) {
             EmptyRecipesView()
         } else {
             LazyColumn(
@@ -101,13 +101,13 @@ fun HomeView(
                     .fillMaxWidth()
             ) {
                 item {
-                    FirstRecipeItemView(recipe = items.first()) {
+                    FirstRecipeItemView(recipe = recipes.value.first()) {
                         viewModel.onEvent(HomeEvent.ShowRecipe(it))
                     }
                 }
                 if (items.size > 1) {
                     items(items.size - 1) { index ->
-                        RecipeItemView(recipe = items[index + 1]) {
+                        RecipeItemView(recipe = recipes.value[index]) {
                             viewModel.onEvent(it)
                         }
                     }

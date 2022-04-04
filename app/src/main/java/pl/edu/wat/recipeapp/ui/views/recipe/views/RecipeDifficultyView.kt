@@ -1,6 +1,5 @@
 package pl.edu.wat.recipeapp.ui.views.recipe.views
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,7 +33,6 @@ import pl.edu.wat.recipeapp.domain.RecipeDifficulty
 import pl.edu.wat.recipeapp.domain.RecipeId
 import pl.edu.wat.recipeapp.domain.RecipePricing
 import pl.edu.wat.recipeapp.ui.theme.Blue
-import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.Yellow
 import pl.edu.wat.recipeapp.ui.theme.spacing
 import java.util.UUID
@@ -201,7 +199,7 @@ fun DefaultPreview() {
                 difficulty = RecipeDifficulty.EASY,
                 cookingTime = 80,
                 portions = 2,
-                favourite = true,
+                isFavourite = true,
                 pricing = RecipePricing.MEDIUM_PRICED
             )
         )

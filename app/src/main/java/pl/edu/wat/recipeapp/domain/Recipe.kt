@@ -3,13 +3,14 @@ package pl.edu.wat.recipeapp.domain
 import java.util.UUID
 
 data class Recipe(
-    val id: RecipeId? = null,
+    val id: RecipeId,
     val name: String,
     val difficulty: RecipeDifficulty,
     val cookingTime: Int,
     val portions: Int,
-    val favourite: Boolean = false,
-    val pricing: RecipePricing = RecipePricing.LOW_PRICED
+    val isFavourite: Boolean = false,
+    val pricing: RecipePricing = RecipePricing.LOW_PRICED,
+    val ingredients: List<Ingredient> = emptyList()
 )
 
 enum class RecipeDifficulty(val value: Int) {
@@ -30,5 +31,6 @@ value class RecipeId(val raw: UUID) {
 
     companion object {
         fun fromString(raw: String) = RecipeId(UUID.fromString(raw))
+        fun generate() = RecipeId(UUID.randomUUID())
     }
 }
