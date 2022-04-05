@@ -1,5 +1,7 @@
 package pl.edu.wat.recipeapp.domain
 
+import androidx.annotation.StringRes
+import pl.edu.wat.recipeapp.R
 import java.util.UUID
 
 data class Ingredient(
@@ -16,14 +18,14 @@ value class IngredientId(val raw: UUID) {
     }
 }
 
-enum class MeasurementUnit {
-    PINCH,
-    TEASPOON,
-    TABLESPOON,
-    CUP,
-    MILLILITER,
-    LITER,
-    GRAM,
-    KILOGRAM,
-    UNIT
+enum class MeasurementUnit(@StringRes val idRes: Int) {
+    PINCH(R.string.pinch),
+    TEASPOON(R.string.teaspoon),
+    TABLESPOON(R.string.tablespoon),
+    CUP(R.string.cup),
+    MILLILITER(R.string.milliliter),
+    LITER(R.string.liter),
+    GRAM(R.string.gram),
+    KILOGRAM(R.string.kilogram),
+    UNIT(R.string.unit)
 }

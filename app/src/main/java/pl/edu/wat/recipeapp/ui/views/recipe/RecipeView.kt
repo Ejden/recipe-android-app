@@ -65,7 +65,7 @@ fun RecipeView(
                     RecipeImageBoxView(recipe)
                 }
                 item {
-                    Divider(thickness = 0.5.dp, color = VeryLightGray)
+                    Divider(thickness = 1.dp, color = VeryLightGray)
                 }
                 item {
                     RecipeActionPanelView(viewModel.isFavouriteRecipe) {
@@ -73,16 +73,18 @@ fun RecipeView(
                     }
                 }
                 item {
-                    Divider(thickness = 0.5.dp, color = VeryLightGray)
+                    Divider(thickness = 1.dp, color = VeryLightGray)
                 }
                 item { 
                     RecipeDifficultyView(recipe)
                 }
                 item {
-                    Divider(thickness = 0.5.dp, color = VeryLightGray)
+                    Divider(thickness = 1.dp, color = VeryLightGray)
                 }
                 item {
-                    RecipeIngredientsView(recipe)
+                    RecipeIngredientsView(recipe, viewModel.servings) {
+                        viewModel.onEvent(it)
+                    }
                 }
             }
         }

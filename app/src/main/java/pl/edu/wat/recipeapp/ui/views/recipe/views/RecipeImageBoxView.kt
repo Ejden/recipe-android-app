@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.domain.Recipe
 import pl.edu.wat.recipeapp.ui.theme.DarkBlack
+import pl.edu.wat.recipeapp.ui.theme.spacing
 
 @Composable
 fun RecipeImageBoxView(
@@ -53,12 +54,14 @@ fun RecipeImageBoxView(
                 )
         )
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .padding(MaterialTheme.spacing.medium)
+                .fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
         ) {
             Text(
                 text = recipe.name,
-                style = MaterialTheme.typography.h1
+                style = MaterialTheme.typography.h2
             )
         }
     }

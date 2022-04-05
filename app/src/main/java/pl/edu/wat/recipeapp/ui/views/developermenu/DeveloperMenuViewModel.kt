@@ -42,12 +42,31 @@ class DeveloperMenuViewModel @Inject constructor(
                 ingredients = listOf(
                     Ingredient(
                         id = IngredientId.generate(),
-                        name = "Milk",
+                        name = "milk",
                         quantity = 1.0,
                         unit = MeasurementUnit.CUP
+                    ),
+                    Ingredient(
+                        id = IngredientId.generate(),
+                        name = "tomato paste",
+                        quantity = 100.0,
+                        unit = MeasurementUnit.GRAM
+                    ),
+                    Ingredient(
+                        id = IngredientId.generate(),
+                        name = "onion",
+                        quantity = 2.0,
+                        unit = MeasurementUnit.UNIT
+                    ),
+                    Ingredient(
+                        id = IngredientId.generate(),
+                        name = "pepper",
+                        quantity = 1.5,
+                        unit = MeasurementUnit.TEASPOON
                     )
                 )
             )
+            repository.insertRecipe(newRecipe)
         }
     }
 }

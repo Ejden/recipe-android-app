@@ -12,7 +12,6 @@ import pl.edu.wat.recipeapp.domain.RecipeDifficulty
 import pl.edu.wat.recipeapp.domain.RecipeId
 import pl.edu.wat.recipeapp.domain.RecipePricing
 import pl.edu.wat.recipeapp.domain.RecipeRepository
-import java.util.UUID
 
 class RecipeRepositoryImpl(private val repository: RecipeDao) : RecipeRepository {
     @Transaction
@@ -29,8 +28,8 @@ class RecipeRepositoryImpl(private val repository: RecipeDao) : RecipeRepository
     }
 
     @Transaction
-    override suspend fun findRecipe(id: UUID): Recipe {
-        return repository.findRecipe(id).toDomain()
+    override suspend fun findRecipe(id: RecipeId): Recipe {
+        return repository.findRecipe(id.raw).toDomain()
     }
 
     @Transaction

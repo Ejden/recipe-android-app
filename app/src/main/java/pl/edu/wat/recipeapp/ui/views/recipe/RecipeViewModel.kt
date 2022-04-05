@@ -10,24 +10,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import pl.edu.wat.recipeapp.domain.Ingredient
 import pl.edu.wat.recipeapp.domain.Recipe
-import pl.edu.wat.recipeapp.domain.RecipeDifficulty
 import pl.edu.wat.recipeapp.domain.RecipeId
-import pl.edu.wat.recipeapp.domain.RecipePricing
 import pl.edu.wat.recipeapp.domain.RecipeRepository
 import pl.edu.wat.recipeapp.util.UIEvent
-import java.util.UUID
 import javax.inject.Inject
-
-private val defaultRecipe = Recipe(
-    id = RecipeId(UUID.randomUUID()),
-    name = "Something",
-    difficulty = RecipeDifficulty.EASY,
-    cookingTime = 80,
-    portions = 2,
-    isFavourite = true,
-    pricing = RecipePricing.MEDIUM_PRICED
-)
 
 @HiltViewModel
 class RecipeViewModel @Inject constructor(
@@ -40,44 +28,71 @@ class RecipeViewModel @Inject constructor(
         private set
     var isFavouriteRecipe by mutableStateOf(false)
         private set
+    var ingredients by mutableStateOf(emptyList<Ingredient>())
+        private set
+
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
         val recipeId = RecipeId.fromString(savedStateHandle.get<String>("recipeId")!!)
         viewModelScope.launch {
-            recipe = defaultRecipe
-            isFavouriteRecipe = defaultRecipe.isFavourite
+            recipe = repository.findRecipe(recipeId)
+            isFavouriteRecipe = recipe?.isFavourite ?: false
+            ingredients = recipe?.ingredients.orEmpty()
         }
     }
 
     fun onEvent(event: RecipeEvent) = when (event) {
-        is RecipeEvent.AddToFavourite -> onAddToFavouriteEvent(event)
-        is RecipeEvent.RemoveFromFavourite -> onRemoveFromFavourite(event)
-        is RecipeEvent.AddToShoppingList -> onAddToShoppingListEvent(event)
-        is RecipeEvent.ChangeServingsQuantity -> onChangeServingsQuantity(event)
-        is RecipeEvent.StartCooking -> onStartCookingEvent(event)
+        is RecipeEvent.AddToFavourite -> onAddToFavouriteEvent()
+        is RecipeEvent.RemoveFromFavourite -> onRemoveFromFavourite()
+        is RecipeEvent.AddToShoppingList -> onAddToShoppingListEvent()
+        is RecipeEvent.IncreaseServingsQuantity -> onIncreaseServingsQuantity()
+        is RecipeEvent.DecreaseServingsQuantity -> onDecreaseServingsQuantity()
+        is RecipeEvent.StartCooking -> onStartCookingEvent()
     }
 
-    private fun onAddToFavouriteEvent(event: RecipeEvent.AddToFavourite) {
-        recipe = defaultRecipe.copy(isFavourite = true)
-        isFavouriteRecipe = recipe!!.isFavourite
+    private fun onAddToFavouriteEvent() {
+        recipe?.let {
+            if (!it.isFavourite) {
+                viewModelScope.launch {
+                    repository.insertRecipe(it.copy(isFavourite = true))
+                    recipe = repository.findRecipe(it.id)
+                    isFavouriteRecipe = recipe?.isFavourite ?: false
+                }
+            }
+        }
     }
 
-    private fun onRemoveFromFavourite(event: RecipeEvent.RemoveFromFavourite) {
-        recipe = defaultRecipe.copy(isFavourite = false)
-        isFavouriteRecipe = recipe!!.isFavourite
+    private fun onRemoveFromFavourite() {
+        recipe?.let {
+            if (it.isFavourite) {
+                viewModelScope.launch {
+                    repository.insertRecipe(it.copy(isFavourite = false))
+                    recipe = repository.findRecipe(it.id)
+                    isFavouriteRecipe = recipe?.isFavourite ?: false
+                }
+            }
+        }
     }
 
-    private fun onAddToShoppingListEvent(event: RecipeEvent.AddToShoppingList) {
-
+    private fun onAddToShoppingListEvent() {
+        // TODO: Shopping List
     }
 
-    private fun onChangeServingsQuantity(event: RecipeEvent.ChangeServingsQuantity) {
-
+    private fun onIncreaseServingsQuantity() {
+        servings++
     }
 
-    private fun onStartCookingEvent(event: RecipeEvent.StartCooking) {
+    private fun onDecreaseServingsQuantity() {
+        if (servings == 1) {
+            return
+        }
 
+        servings--
+    }
+
+    private fun onStartCookingEvent() {
+        // TODO: Cooking screen
     }
 }

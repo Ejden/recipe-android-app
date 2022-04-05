@@ -8,10 +8,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import pl.edu.wat.recipeapp.ui.theme.Blue
 
 @Composable
-fun DeveloperMenuView() {
+fun DeveloperMenuView(
+    viewModel: DeveloperMenuViewModel = hiltViewModel()
+) {
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -22,7 +25,9 @@ fun DeveloperMenuView() {
                 colors = buttonColors(
                     backgroundColor = Blue
                 ),
-                onClick = { /*TODO*/ }
+                onClick = {
+                    viewModel.onEvent(DeveloperMenuEvent.AddSampleRecipe)
+                }
             ) {
                 Text(text = "Generate random recipe")
             }

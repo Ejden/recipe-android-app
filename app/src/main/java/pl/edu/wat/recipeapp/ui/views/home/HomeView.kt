@@ -12,71 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.collect
-import pl.edu.wat.recipeapp.domain.Recipe
-import pl.edu.wat.recipeapp.domain.RecipeDifficulty
-import pl.edu.wat.recipeapp.domain.RecipeId
 import pl.edu.wat.recipeapp.util.UIEvent
 import pl.edu.wat.recipeapp.ui.views.home.views.EmptyRecipesView
 import pl.edu.wat.recipeapp.ui.views.home.views.FirstRecipeItemView
 import pl.edu.wat.recipeapp.ui.views.home.views.RecipeItemView
-import java.util.UUID
-
-private val items = listOf(
-    Recipe(
-        id = RecipeId(UUID.randomUUID()),
-        name = "Spaghetti bolognese",
-        difficulty = RecipeDifficulty.MEDIUM,
-        cookingTime = 40,
-        portions = 4
-    ),
-    Recipe(
-        id = RecipeId(UUID.randomUUID()),
-        name = "Spaghetti bolognese",
-        difficulty = RecipeDifficulty.EASY,
-        cookingTime = 40,
-        portions = 4
-    ),
-    Recipe(
-        id = RecipeId(UUID.randomUUID()),
-        name = "Spaghetti bolognese",
-        difficulty = RecipeDifficulty.MEDIUM,
-        cookingTime = 40,
-        portions = 4
-    ),
-    Recipe(
-        id = RecipeId(UUID.randomUUID()),
-        name = "Spaghetti bolognese",
-        difficulty = RecipeDifficulty.MEDIUM,
-        cookingTime = 40,
-        portions = 4
-    ),
-    Recipe(
-        id = RecipeId(UUID.randomUUID()),
-        name = "Spaghetti bolognese",
-        difficulty = RecipeDifficulty.MEDIUM,
-        cookingTime = 40,
-        portions = 4
-    ),
-    Recipe(
-        id = RecipeId(UUID.randomUUID()),
-        name = "Spaghetti bolognese",
-        difficulty = RecipeDifficulty.MEDIUM,
-        cookingTime = 40,
-        portions = 4
-    ),Recipe(
-        id = RecipeId(UUID.randomUUID()),
-        name = "Spaghetti bolognese",
-        difficulty = RecipeDifficulty.MEDIUM,
-        cookingTime = 40,
-        portions = 4
-    ),Recipe(
-        id = RecipeId(UUID.randomUUID()),
-        name = "Spaghetti bolognese",
-        difficulty = RecipeDifficulty.MEDIUM,
-        cookingTime = 40,
-        portions = 4
-    )
-)
 
 @Composable
 fun HomeView(
@@ -105,9 +44,9 @@ fun HomeView(
                         viewModel.onEvent(HomeEvent.ShowRecipe(it))
                     }
                 }
-                if (items.size > 1) {
-                    items(items.size - 1) { index ->
-                        RecipeItemView(recipe = recipes.value[index]) {
+                if (recipes.value.size > 1) {
+                    items(recipes.value.size - 1) { index ->
+                        RecipeItemView(recipe = recipes.value[index+1]) {
                             viewModel.onEvent(it)
                         }
                     }

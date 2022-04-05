@@ -9,4 +9,17 @@
     <string name="cooking">Cooking</string>
     <string name="difficulty">Difficulty</string>
     <string name="pricing">Pricing</string>
+    <string name="ingredients">INGREDIENTS</string>
+    <string name="serving">serving</string>
+    <string name="servings">servings</string>
+    <string name="pinch">pinch</string>
+    <string name="teaspoon">tsp</string>
+    <string name="tablespoon">tbsp</string>
+    <string name="cup">cup</string>
+    <string name="milliliter">ml</string>
+    <string name="liter">l</string>
+    <string name="gram">g</string>
+    <string name="kilogram">kg</string>
+    <string name="unit"/>
+    <string name="add_to_shopping_list">Add to shopping list</string>
 </resources>

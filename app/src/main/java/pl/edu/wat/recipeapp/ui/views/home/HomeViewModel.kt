@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
     private fun onShowRecipeEvent(event: HomeEvent.ShowRecipe) {
         sendUIEvent(UIEvent.Navigate(
             route = NavigationRoute.Recipe,
-            args = listOf(event.recipe.id!!.printable())
+            args = listOf(event.recipe.id.printable())
         ))
     }
 

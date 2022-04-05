@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -44,14 +45,14 @@ fun FirstRecipeItemView(
             contentScale = ContentScale.Crop,
             contentDescription = recipe.name,
             modifier = Modifier
-                .fillMaxHeight(0.85f)
+                .fillMaxHeight(0.80f)
                 .clickable { onRecipeClick(recipe) },
             alignment = Alignment.Center
         )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
+//                .height(100.dp)
                 .padding(horizontal = MaterialTheme.spacing.medium)
                 .offset(0.dp, -MaterialTheme.spacing.large)
                 .clip(MaterialTheme.shapes.medium)

@@ -30,6 +30,12 @@ val Typography = Typography(
         fontSize = 16.sp,
         color = White
     ),
+    button = TextStyle(
+        fontFamily = poppins,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        color = White
+    ),
     h1 = TextStyle(
         fontFamily = poppins,
         fontWeight = FontWeight.Normal,
