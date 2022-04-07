@@ -1,4 +1,4 @@
-package pl.edu.wat.recipeapp.views.home.views
+package pl.edu.wat.recipeapp.ui.views.home.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,14 +10,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,14 +45,14 @@ fun FirstRecipeItemView(
             contentScale = ContentScale.Crop,
             contentDescription = recipe.name,
             modifier = Modifier
-                .fillMaxHeight(0.85f)
+                .fillMaxHeight(0.80f)
                 .clickable { onRecipeClick(recipe) },
             alignment = Alignment.Center
         )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
+//                .height(100.dp)
                 .padding(horizontal = MaterialTheme.spacing.medium)
                 .offset(0.dp, -MaterialTheme.spacing.large)
                 .clip(MaterialTheme.shapes.medium)

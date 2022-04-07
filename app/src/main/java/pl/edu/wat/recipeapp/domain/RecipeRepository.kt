@@ -8,7 +8,7 @@ interface RecipeRepository {
 
     suspend fun removeRecipe(recipe: Recipe)
 
-    suspend fun findRecipe(id: UUID): Recipe
+    suspend fun findRecipe(id: RecipeId): Recipe
 
     fun getAllRecipes(): Flow<List<Recipe>>
 }

@@ -1,4 +1,4 @@
-package pl.edu.wat.recipeapp.views.home
+package pl.edu.wat.recipeapp.ui.views.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,7 +24,10 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun onShowRecipeEvent(event: HomeEvent.ShowRecipe) {
-        sendUIEvent(UIEvent.Navigate(NavigationRoute.Recipe))
+        sendUIEvent(UIEvent.Navigate(
+            route = NavigationRoute.Recipe,
+            args = listOf(event.recipe.id.printable())
+        ))
     }
 
     private fun sendUIEvent(event: UIEvent) {

@@ -1,4 +1,4 @@
-package pl.edu.wat.recipeapp.views.home.views
+package pl.edu.wat.recipeapp.ui.views.home.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package pl.edu.wat.recipeapp.views.home
+package pl.edu.wat.recipeapp.ui.views.home
 
 import pl.edu.wat.recipeapp.domain.Recipe
 

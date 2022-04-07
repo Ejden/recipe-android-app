@@ -2,20 +2,23 @@ package pl.edu.wat.recipeapp.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import pl.edu.wat.recipeapp.views.createrecipe.CreateRecipeView
-import pl.edu.wat.recipeapp.views.home.HomeView
-import pl.edu.wat.recipeapp.views.profile.ProfileView
-import pl.edu.wat.recipeapp.views.recipe.RecipeView
-import pl.edu.wat.recipeapp.views.shopping.ShoppingListView
+import androidx.navigation.navArgument
+import pl.edu.wat.recipeapp.ui.views.createrecipe.CreateRecipeView
+import pl.edu.wat.recipeapp.ui.views.developermenu.DeveloperMenuView
+import pl.edu.wat.recipeapp.ui.views.home.HomeView
+import pl.edu.wat.recipeapp.ui.views.profile.ProfileView
+import pl.edu.wat.recipeapp.ui.views.recipe.RecipeView
+import pl.edu.wat.recipeapp.ui.views.shopping.ShoppingListView
 
 @Composable
 fun NavigationView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = NavigationRoute.Home.rawRoute) {
         composable(route = NavigationRoute.Home.rawRoute) {
             HomeView(onNavigate = {
-                navController.navigate(it.route.rawRoute)
+                navController.navigate(it.route.withArgs(it.args))
             })
         }
         composable(route = NavigationRoute.CreateRecipe.rawRoute) {
@@ -25,10 +28,31 @@ fun NavigationView(navController: NavHostController) {
             ShoppingListView()
         }
         composable(route = NavigationRoute.Profile.rawRoute) {
-            ProfileView()
+            ProfileView(
+                onNavigate = {
+                    navController.navigate(it.route.withArgs(it.args))
+                }
+            )
         }
-        composable(route = NavigationRoute.Recipe.rawRoute) {
-            RecipeView()
+        composable(
+            route = NavigationRoute.Recipe.rawRoute + "/{recipeId}",
+            arguments = listOf(
+                navArgument("recipeId") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            RecipeView(
+                onBackPressed = {
+                    navController.popBackStack()
+                },
+                onNavigate = {
+                    navController.navigate(it.route.withoutArgs())
+                }
+            )
+        }
+        composable(route = NavigationRoute.DeveloperMenu.rawRoute) {
+            DeveloperMenuView()
         }
     }
 }

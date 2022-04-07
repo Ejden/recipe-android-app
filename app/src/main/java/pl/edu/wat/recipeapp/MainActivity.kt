@@ -14,8 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.edu.wat.recipeapp.navigation.NavigationRoute
 import pl.edu.wat.recipeapp.navigation.NavigationView
 import pl.edu.wat.recipeapp.ui.theme.RecipeAppTheme
-import pl.edu.wat.recipeapp.viewcomponents.NavigationBarView
-import pl.edu.wat.recipeapp.viewcomponents.NavigationItem
+import pl.edu.wat.recipeapp.ui.viewcomponents.NavigationBarView
+import pl.edu.wat.recipeapp.ui.viewcomponents.NavigationItem
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
