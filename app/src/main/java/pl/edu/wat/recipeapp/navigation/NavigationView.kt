@@ -11,7 +11,7 @@ import pl.edu.wat.recipeapp.ui.views.developermenu.DeveloperMenuView
 import pl.edu.wat.recipeapp.ui.views.home.HomeView
 import pl.edu.wat.recipeapp.ui.views.profile.ProfileView
 import pl.edu.wat.recipeapp.ui.views.recipe.RecipeView
-import pl.edu.wat.recipeapp.ui.views.shopping.ShoppingListView
+import pl.edu.wat.recipeapp.ui.views.shoppinglists.ShoppingListView
 
 @Composable
 fun NavigationView(navController: NavHostController) {

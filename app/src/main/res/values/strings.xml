@@ -22,4 +22,5 @@
     <string name="kilogram">kg</string>
     <string name="unit"/>
     <string name="add_to_shopping_list">Add to shopping list</string>
+    <string name="shopping_list">Shopping List</string>
 </resources>

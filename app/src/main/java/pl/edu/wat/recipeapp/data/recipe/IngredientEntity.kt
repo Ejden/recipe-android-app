@@ -1,4 +1,4 @@
-package pl.edu.wat.recipeapp.data
+package pl.edu.wat.recipeapp.data.recipe
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

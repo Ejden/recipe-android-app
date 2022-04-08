@@ -62,7 +62,12 @@ fun RecipeView(
         ) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 item {
-                    RecipeImageBoxView(recipe)
+                    RecipeImageBoxView(recipe) {
+                        when (it) {
+                            is RecipeEvent.GoBack -> onBackPressed()
+                            else -> Unit
+                        }
+                    }
                 }
                 item {
                     Divider(thickness = 1.dp, color = VeryLightGray)

@@ -50,6 +50,7 @@ class RecipeViewModel @Inject constructor(
         is RecipeEvent.IncreaseServingsQuantity -> onIncreaseServingsQuantity()
         is RecipeEvent.DecreaseServingsQuantity -> onDecreaseServingsQuantity()
         is RecipeEvent.StartCooking -> onStartCookingEvent()
+        is RecipeEvent.GoBack -> onGoBackEvent()
     }
 
     private fun onAddToFavouriteEvent() {
@@ -94,5 +95,11 @@ class RecipeViewModel @Inject constructor(
 
     private fun onStartCookingEvent() {
         // TODO: Cooking screen
+    }
+
+    private fun onGoBackEvent() {
+        viewModelScope.launch {
+            _uiEvent.send(UIEvent.GoBack)
+        }
     }
 }
