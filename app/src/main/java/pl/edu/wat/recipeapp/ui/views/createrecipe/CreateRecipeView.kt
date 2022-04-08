@@ -4,44 +4,49 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.flow.collect
 import pl.edu.wat.recipeapp.domain.RecipeDifficulty
+import pl.edu.wat.recipeapp.domain.RecipePricing
 import pl.edu.wat.recipeapp.ui.theme.DarkGray
-import pl.edu.wat.recipeapp.ui.theme.LightGray
 import pl.edu.wat.recipeapp.ui.theme.spacing
-import pl.edu.wat.recipeapp.viewcomponents.NAVIGATION_BAR_HEIGHT
+import pl.edu.wat.recipeapp.ui.viewcomponents.DropdownMenuField
+import pl.edu.wat.recipeapp.ui.viewcomponents.DropdownValue
+import pl.edu.wat.recipeapp.ui.viewcomponents.NAVIGATION_BAR_HEIGHT
+import pl.edu.wat.recipeapp.util.UIEvent
 
 @Composable
-fun CreateRecipeView() {
-    var name by remember { mutableStateOf("") }
-    var difficulty by remember { mutableStateOf(RecipeDifficulty.EASY) }
-    var cookingTime by remember { mutableStateOf(0) }
-    var portions by remember { mutableStateOf(0) }
-
-    val focusManager = LocalFocusManager.current
+fun CreateRecipeView(
+    viewModel: CreateRecipeViewModel = hiltViewModel(),
+    onNavigate: (UIEvent.Navigate) -> Unit,
+) {
     val scrollState = rememberScrollState()
-    var difficultySelectExpanded by remember { mutableStateOf(false) }
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect {
+            when (it) {
+                is UIEvent.Navigate -> onNavigate(it)
+                else -> Unit
+            }
+        }
+    }
 
     Column(
         horizontalAlignment = Alignment.Start,
@@ -62,8 +67,8 @@ fun CreateRecipeView() {
         ) {
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = name,
-                onValueChange = { name = it },
+                value = viewModel.name,
+                onValueChange = { viewModel.onEvent(CreateRecipeEvent.OnNameChange(it)) },
                 singleLine = true,
                 label = {
                     Text(text = "Recipe name")
@@ -72,44 +77,50 @@ fun CreateRecipeView() {
                     Text(text = "e.g. Spaghetti Bolognese")
                 },
             )
-            Box {
-                TextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .onFocusChanged { state -> difficultySelectExpanded = state.hasFocus },
-                    readOnly = true,
-                    value = difficulty.displayName,
-                    onValueChange = {},
-                    singleLine = true,
-                    label = {
-                        Text(text = "Difficulty")
-                    }
-                )
-                DropdownMenu(
-                    modifier = Modifier
-                        .background(LightGray),
-                    expanded = difficultySelectExpanded,
-                    onDismissRequest = {
-                        difficultySelectExpanded = false
-                        focusManager.clearFocus()
-                    }
-                ) {
-                    RecipeDifficulty.values()
-                        .forEach {
-                            DropdownMenuItem(onClick = {
-                                difficulty = it
-                                difficultySelectExpanded = false
-                                focusManager.clearFocus()
-                            }) {
-                                Text(text = it.displayName)
-                            }
-                        }
+            DropdownMenuField(
+                values = RecipeDifficulty.values()
+                    .map { DropdownValue(key = it.name, label = stringResource(id = it.idRes)) },
+                currentValue = stringResource(id = viewModel.difficulty.idRes),
+                label = "Difficulty",
+                onValueChange = {
+                    viewModel.onEvent(
+                        CreateRecipeEvent.OnDifficultyChange(
+                            RecipeDifficulty.valueOf(it)
+                        )
+                    )
                 }
-            }
+            )
+            TextField(
+                value = viewModel.cookingTime,
+                onValueChange = { value ->
+                    viewModel.onEvent(
+                        CreateRecipeEvent.OnCookingTimeChange(value.filter { it.isDigit() })
+                    )
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                ),
+                label = {
+                    Text(text = "Cooking Time")
+                }
+            )
+            DropdownMenuField(
+                values = RecipePricing.values()
+                    .map { DropdownValue(key = it.name, label = stringResource(id = it.idRes)) },
+                currentValue = stringResource(id = viewModel.pricing.idRes),
+                label = "Pricing",
+                onValueChange = {
+                    viewModel.onEvent(
+                        CreateRecipeEvent.OnPricingChange(
+                            RecipePricing.valueOf(it)
+                        )
+                    )
+                }
+            )
         }
         Button(
             modifier = Modifier.fillMaxWidth(),
-            onClick = { /*TODO*/ }
+            onClick = { viewModel.onEvent(CreateRecipeEvent.OnSave) }
         ) {
             Text(text = "Create")
         }

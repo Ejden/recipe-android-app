@@ -22,7 +22,11 @@ fun NavigationView(navController: NavHostController) {
             })
         }
         composable(route = NavigationRoute.CreateRecipe.rawRoute) {
-            CreateRecipeView()
+            CreateRecipeView(
+                onNavigate = {
+                    navController.navigate(it.route.withArgs(it.args))
+                }
+            )
         }
         composable(route = NavigationRoute.ShoppingList.rawRoute) {
             ShoppingListView()

@@ -22,4 +22,10 @@
     <string name="kilogram">kg</string>
     <string name="unit"/>
     <string name="add_to_shopping_list">Add to shopping list</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="low_priced">Low priced</string>
+    <string name="medium_priced">Medium priced</string>
+    <string name="high_priced">High priced</string>
 </resources>
