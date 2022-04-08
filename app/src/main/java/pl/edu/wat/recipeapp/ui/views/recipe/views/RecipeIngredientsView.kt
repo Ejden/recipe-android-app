@@ -145,7 +145,7 @@ fun RecipeIngredientsView(
             modifier = Modifier
                 .padding(top = MaterialTheme.spacing.small)
                 .fillMaxWidth(),
-            onClick = { onEvent(RecipeEvent.AddToShoppingList) }
+            onClick = { onEvent(RecipeEvent.AddToShoppingList) },
         ) {
             Text(
                 text = stringResource(id = R.string.add_to_shopping_list),

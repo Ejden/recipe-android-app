@@ -10,6 +10,8 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import pl.edu.wat.recipeapp.domain.Ingredient
+import pl.edu.wat.recipeapp.domain.IngredientId
+import pl.edu.wat.recipeapp.domain.MeasurementUnit
 import pl.edu.wat.recipeapp.domain.Recipe
 import pl.edu.wat.recipeapp.domain.RecipeDifficulty
 import pl.edu.wat.recipeapp.domain.RecipeId
@@ -27,6 +29,8 @@ class CreateRecipeViewModel @Inject constructor(
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+    // Recipe
+
     var name by mutableStateOf("")
         private set
 
@@ -42,12 +46,28 @@ class CreateRecipeViewModel @Inject constructor(
     var ingredients by mutableStateOf(listOf<Ingredient>())
         private set
 
+    // New ingredient
+
+    var ingredientName by mutableStateOf("")
+        private set
+
+    var ingredientQuantity by mutableStateOf("")
+        private set
+
+    var ingredientUnit by mutableStateOf(MeasurementUnit.UNIT)
+        private set
+
     fun onEvent(event: CreateRecipeEvent) = when (event) {
         is CreateRecipeEvent.OnCookingTimeChange -> cookingTime = event.cookingTime
         is CreateRecipeEvent.OnDifficultyChange -> difficulty = event.difficulty
-        is CreateRecipeEvent.OnNameChange -> name = event.name
+        is CreateRecipeEvent.OnRecipeNameChange -> name = event.name
         is CreateRecipeEvent.OnPricingChange -> pricing = event.pricing
         is CreateRecipeEvent.OnSave -> onSaveEvent()
+        is CreateRecipeEvent.OnIngredientNameChange -> ingredientName = event.name
+        is CreateRecipeEvent.OnIngredientQuantityChange -> ingredientQuantity = event.quantity
+        is CreateRecipeEvent.OnIngredientUnitChange -> ingredientUnit = event.unit
+        is CreateRecipeEvent.OnIngredientAdd -> onIngredientAdd()
+        is CreateRecipeEvent.OnIngredientRemove -> onIngredientRemove(event.ingredientId)
     }
 
     private fun onSaveEvent() {
@@ -63,6 +83,7 @@ class CreateRecipeViewModel @Inject constructor(
                     difficulty = difficulty,
                     cookingTime = cookingTime.parseInt(),
                     pricing = pricing,
+                    ingredients = ingredients,
                 )
             )
             _uiEvent.send(UIEvent.Navigate(
@@ -71,6 +92,7 @@ class CreateRecipeViewModel @Inject constructor(
             ))
         }
     }
+
 
     private fun isValid(): Boolean {
         return name.isNotBlank()
@@ -82,5 +104,29 @@ class CreateRecipeViewModel @Inject constructor(
             return 0
         }
         return this.filter { it.isDigit() }.toInt()
+    }
+
+    private fun onIngredientAdd() {
+        if (!isIngredientValid()) {
+            return
+        }
+        ingredients = ingredients + Ingredient(
+            id = IngredientId.generate(),
+            name = ingredientName,
+            quantity = ingredientQuantity.toDouble(),
+            unit = ingredientUnit,
+        )
+        ingredientName = ""
+        ingredientQuantity = ""
+        ingredientUnit = MeasurementUnit.UNIT
+    }
+
+    private fun isIngredientValid(): Boolean {
+        return ingredientName.isNotBlank()
+                && ingredientQuantity.isNotBlank()
+    }
+
+    private fun onIngredientRemove(id: IngredientId) {
+        ingredients = ingredients.filter { it.id != id }
     }
 }

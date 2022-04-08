@@ -4,7 +4,7 @@ sealed class NavigationRoute(val rawRoute: String) {
     object Home : NavigationRoute("home")
     object CreateRecipe : NavigationRoute("create_recipe")
     object ShoppingList : NavigationRoute("shopping")
-    object Profile : NavigationRoute("profile")
+    object Favorites : NavigationRoute("favorites")
     object Recipe : NavigationRoute("recipe")
     object DeveloperMenu : NavigationRoute("developer_menu")
 

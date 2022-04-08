@@ -1,8 +1,8 @@
 package pl.edu.wat.recipeapp.domain
 
 import androidx.annotation.StringRes
-import java.util.*
 import pl.edu.wat.recipeapp.R
+import java.util.UUID
 
 data class Recipe(
     val id: RecipeId,

@@ -1,14 +1,13 @@
 package pl.edu.wat.recipeapp
 
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,9 +44,9 @@ class MainActivity : ComponentActivity() {
                                     icon = Icons.Default.ShoppingCart
                                 ),
                                 NavigationItem(
-                                    name = "Profile",
-                                    route = NavigationRoute.Profile,
-                                    icon = Icons.Default.Person
+                                    name = "Likes",
+                                    route = NavigationRoute.Favorites,
+                                    icon = Icons.Default.Favorite
                                 )
                             ),
                             navController = navController,
