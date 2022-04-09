@@ -14,12 +14,14 @@ import pl.edu.wat.recipeapp.domain.Ingredient
 import pl.edu.wat.recipeapp.domain.Recipe
 import pl.edu.wat.recipeapp.domain.RecipeId
 import pl.edu.wat.recipeapp.domain.RecipeRepository
+import pl.edu.wat.recipeapp.domain.ShoppingListRepository
 import pl.edu.wat.recipeapp.util.UIEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class RecipeViewModel @Inject constructor(
-    private val repository: RecipeRepository,
+    private val recipeRepository: RecipeRepository,
+    private val shoppingListRepository: ShoppingListRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     var recipe by mutableStateOf<Recipe?>(null)
@@ -37,7 +39,7 @@ class RecipeViewModel @Inject constructor(
     init {
         val recipeId = RecipeId.fromString(savedStateHandle.get<String>("recipeId")!!)
         viewModelScope.launch {
-            recipe = repository.findRecipe(recipeId)
+            recipe = recipeRepository.findRecipe(recipeId)
             isFavouriteRecipe = recipe?.isFavourite ?: false
             ingredients = recipe?.ingredients.orEmpty()
         }
@@ -57,8 +59,8 @@ class RecipeViewModel @Inject constructor(
         recipe?.let {
             if (!it.isFavourite) {
                 viewModelScope.launch {
-                    repository.insertRecipe(it.copy(isFavourite = true))
-                    recipe = repository.findRecipe(it.id)
+                    recipeRepository.insertRecipe(it.copy(isFavourite = true))
+                    recipe = recipeRepository.findRecipe(it.id)
                     isFavouriteRecipe = recipe?.isFavourite ?: false
                 }
             }
@@ -69,8 +71,8 @@ class RecipeViewModel @Inject constructor(
         recipe?.let {
             if (it.isFavourite) {
                 viewModelScope.launch {
-                    repository.insertRecipe(it.copy(isFavourite = false))
-                    recipe = repository.findRecipe(it.id)
+                    recipeRepository.insertRecipe(it.copy(isFavourite = false))
+                    recipe = recipeRepository.findRecipe(it.id)
                     isFavouriteRecipe = recipe?.isFavourite ?: false
                 }
             }
@@ -78,7 +80,9 @@ class RecipeViewModel @Inject constructor(
     }
 
     private fun onAddToShoppingListEvent() {
-        // TODO: Shopping List
+        viewModelScope.launch {
+            shoppingListRepository.saveShoppingList()
+        }
     }
 
     private fun onIncreaseServingsQuantity() {

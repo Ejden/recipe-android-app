@@ -9,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import pl.edu.wat.recipeapp.data.Database
 import pl.edu.wat.recipeapp.data.RepositoryImpl
 import pl.edu.wat.recipeapp.domain.RecipeRepository
+import pl.edu.wat.recipeapp.domain.ShoppingListRepository
 import javax.inject.Singleton
 
 @Module
@@ -23,6 +24,12 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRecipeRepository(db: Database): RecipeRepository {
+        return RepositoryImpl(db.recipeDao, db.shoppingListDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideShoppingListRepository(db: Database): ShoppingListRepository {
         return RepositoryImpl(db.recipeDao, db.shoppingListDao)
     }
 }

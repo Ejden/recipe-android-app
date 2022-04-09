@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ShoppingListsViewModel @Inject constructor(
     private val shoppingRepository: ShoppingListRepository,
-//    private val recipeRepository: RecipeRepository
+    private val recipeRepository: RecipeRepository
 ) : ViewModel() {
     val shoppingLists = shoppingRepository.getAllShoppingLists()
 
