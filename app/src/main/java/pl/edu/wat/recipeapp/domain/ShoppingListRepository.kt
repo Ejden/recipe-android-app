@@ -10,9 +10,6 @@ interface ShoppingListRepository {
         shoppingListItem: ShoppingListItem,
         shoppingListId: ShoppingListId
     )
-    suspend fun removeShoppingList(shoppingList: ShoppingList)
-    suspend fun removeShoppingListItem(
-        shoppingListItem: ShoppingListItem,
-        shoppingListId: ShoppingListId
-    )
+    suspend fun removeShoppingList(id: ShoppingListId)
+    suspend fun removeShoppingListItem(id: ShoppingListItemId)
 }

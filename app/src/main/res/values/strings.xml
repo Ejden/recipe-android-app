@@ -24,4 +24,5 @@
     <string name="add_to_shopping_list">Add to shopping list</string>
     <string name="shopping_list">Shopping List</string>
     <string name="added_to_shopping_list">Added to shopping list</string>
+    <string name="no_shopping_lists">Looks like you don\'t have any shopping lists</string>
 </resources>

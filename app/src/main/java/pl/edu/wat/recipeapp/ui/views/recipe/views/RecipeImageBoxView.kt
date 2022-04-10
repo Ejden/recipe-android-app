@@ -3,13 +3,22 @@ package pl.edu.wat.recipeapp.ui.views.recipe.views
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,7 +30,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.domain.Recipe
-import pl.edu.wat.recipeapp.ui.theme.*
+import pl.edu.wat.recipeapp.ui.theme.DarkBlack
+import pl.edu.wat.recipeapp.ui.theme.VeryLightGrayWithAlpha
+import pl.edu.wat.recipeapp.ui.theme.White
+import pl.edu.wat.recipeapp.ui.theme.spacing
 import pl.edu.wat.recipeapp.ui.views.recipe.RecipeEvent
 
 @Composable
@@ -72,19 +84,39 @@ fun RecipeImageBoxView(
                 .fillMaxSize()
                 .padding(MaterialTheme.spacing.medium)
         ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(CircleShape)
-                    .background(VeryLightGrayWithAlpha)
-                    .clickable { onEvent(RecipeEvent.GoBack) }
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = White
-                )
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(CircleShape)
+                        .background(VeryLightGrayWithAlpha)
+                        .clickable { onEvent(RecipeEvent.GoBack) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back",
+                        tint = White
+                    )
+                }
+
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(CircleShape)
+                        .background(VeryLightGrayWithAlpha)
+                        .clickable { onEvent(RecipeEvent.RemoveRecipe) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Remove",
+                        tint = White
+                    )
+                }
             }
         }
     }

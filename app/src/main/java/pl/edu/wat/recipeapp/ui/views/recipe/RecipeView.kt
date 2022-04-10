@@ -71,6 +71,7 @@ fun RecipeView(
                     RecipeImageBoxView(recipe) {
                         when (it) {
                             is RecipeEvent.GoBack -> onBackPressed()
+                            is RecipeEvent.RemoveRecipe -> viewModel.onEvent(it)
                             else -> Unit
                         }
                     }

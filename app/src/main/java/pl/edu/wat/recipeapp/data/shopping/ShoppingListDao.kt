@@ -1,7 +1,6 @@
 package pl.edu.wat.recipeapp.data.shopping
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -21,6 +20,10 @@ interface ShoppingListDao {
     fun getAllShoppingLists(): Flow<List<ShoppingListWithItems>>
 
     @Transaction
+    @Query("SELECT * FROM shopping_lists WHERE recipeId = :recipeId")
+    fun getAllShoppingListsForRecipe(recipeId: UUID): Flow<List<ShoppingListWithItems>>
+
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveShoppingList(shoppingList: ShoppingListEntity)
 
@@ -29,10 +32,10 @@ interface ShoppingListDao {
     suspend fun saveShoppingListItem(shoppingListItem: ShoppingListItemEntity)
 
     @Transaction
-    @Delete
-    suspend fun removeShoppingList(shoppingList: ShoppingListEntity)
+    @Query("DELETE FROM shopping_lists WHERE id = :shoppingListId")
+    suspend fun removeShoppingList(shoppingListId: UUID)
 
     @Transaction
-    @Delete
-    suspend fun removeShoppingListItem(shoppingListItem: ShoppingListItemEntity)
+    @Query("DELETE FROM shopping_list_items WHERE id = :shoppingListItemId")
+    suspend fun removeShoppingListItem(shoppingListItemId: UUID)
 }

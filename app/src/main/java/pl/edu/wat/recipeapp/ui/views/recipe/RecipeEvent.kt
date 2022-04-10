@@ -8,4 +8,5 @@ sealed class RecipeEvent {
     object IncreaseServingsQuantity : RecipeEvent()
     object DecreaseServingsQuantity : RecipeEvent()
     object GoBack : RecipeEvent()
+    object RemoveRecipe : RecipeEvent()
 }

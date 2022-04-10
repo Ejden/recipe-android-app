@@ -57,6 +57,7 @@ class RecipeViewModel @Inject constructor(
         is RecipeEvent.DecreaseServingsQuantity -> onDecreaseServingsQuantity()
         is RecipeEvent.StartCooking -> onStartCookingEvent()
         is RecipeEvent.GoBack -> onGoBackEvent()
+        is RecipeEvent.RemoveRecipe -> onRecipeRemoveEvent()
     }
 
     private fun onAddToFavouriteEvent() {
@@ -125,6 +126,15 @@ class RecipeViewModel @Inject constructor(
     private fun onGoBackEvent() {
         viewModelScope.launch {
             _uiEvent.send(UIEvent.GoBack)
+        }
+    }
+
+    private fun onRecipeRemoveEvent() {
+        viewModelScope.launch {
+            recipe?.let {
+                recipeRepository.removeRecipe(it.id)
+                _uiEvent.send(UIEvent.GoBack)
+            }
         }
     }
 }

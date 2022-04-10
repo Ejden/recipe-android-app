@@ -5,14 +5,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import pl.edu.wat.recipeapp.data.recipe.RecipeDao
 import pl.edu.wat.recipeapp.data.shopping.ShoppingListDao
-import pl.edu.wat.recipeapp.data.shopping.ShoppingListEntity
-import pl.edu.wat.recipeapp.data.shopping.ShoppingListItemEntity
 import pl.edu.wat.recipeapp.domain.Recipe
 import pl.edu.wat.recipeapp.domain.RecipeId
 import pl.edu.wat.recipeapp.domain.RecipeRepository
 import pl.edu.wat.recipeapp.domain.ShoppingList
 import pl.edu.wat.recipeapp.domain.ShoppingListId
 import pl.edu.wat.recipeapp.domain.ShoppingListItem
+import pl.edu.wat.recipeapp.domain.ShoppingListItemId
 import pl.edu.wat.recipeapp.domain.ShoppingListRepository
 import pl.edu.wat.recipeapp.util.AsyncCallHandlers
 import pl.edu.wat.recipeapp.util.CallHandlers
@@ -28,14 +27,6 @@ class RepositoryImpl(
     ) {
         recipeRepository.insertRecipe(it.recipe)
         it.ingredients.forEach { ingredient -> recipeRepository.insertIngredient(ingredient) }
-    }
-
-    @Transaction
-    override suspend fun removeRecipe(recipe: Recipe) = AsyncCallHandlers.handleDbCall(
-        argument = recipe,
-        domainMapper = RecipeMapper
-    ) {
-        recipeRepository.removeRecipe(it)
     }
 
     @Transaction
@@ -76,13 +67,13 @@ class RepositoryImpl(
         argument = shoppingList,
         domainMapper = ShoppingListMapper
     ) {
+        shoppingListRepository.saveShoppingList(it)
         shoppingList.shoppingListItems.forEach { item ->
             saveShoppingListItem(
                 item,
                 shoppingList.id
             )
         }
-        shoppingListRepository.saveShoppingList(it)
     }
 
     @Transaction
@@ -97,23 +88,14 @@ class RepositoryImpl(
     }
 
     @Transaction
-    override suspend fun removeShoppingList(
-        shoppingList: ShoppingList
-    ) = AsyncCallHandlers.handleDbCall(
-        argument = shoppingList,
-        domainMapper = ShoppingListMapper
-    ) {
-        shoppingListRepository.removeShoppingList(it)
-    }
+    override suspend fun removeShoppingList(id: ShoppingListId) =
+        shoppingListRepository.removeShoppingList(id.raw)
 
     @Transaction
-    override suspend fun removeShoppingListItem(
-        shoppingListItem: ShoppingListItem,
-        shoppingListId: ShoppingListId
-    ) = AsyncCallHandlers.handleDbCall(
-        argument = shoppingListItem,
-        domainMapper = ShoppingListItemMapper(shoppingListId)
-    ) {
-        shoppingListRepository.removeShoppingListItem(it)
-    }
+    override suspend fun removeShoppingListItem(id: ShoppingListItemId) =
+        shoppingListRepository.removeShoppingListItem(id.raw)
+
+    @Transaction
+    override suspend fun removeRecipe(id: RecipeId) =
+        recipeRepository.removeRecipe(id.raw)
 }
