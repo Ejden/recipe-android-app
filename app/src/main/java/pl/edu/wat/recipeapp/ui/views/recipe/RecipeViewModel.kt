@@ -14,6 +14,10 @@ import pl.edu.wat.recipeapp.domain.Ingredient
 import pl.edu.wat.recipeapp.domain.Recipe
 import pl.edu.wat.recipeapp.domain.RecipeId
 import pl.edu.wat.recipeapp.domain.RecipeRepository
+import pl.edu.wat.recipeapp.domain.ShoppingList
+import pl.edu.wat.recipeapp.domain.ShoppingListId
+import pl.edu.wat.recipeapp.domain.ShoppingListItem
+import pl.edu.wat.recipeapp.domain.ShoppingListItemId
 import pl.edu.wat.recipeapp.domain.ShoppingListRepository
 import pl.edu.wat.recipeapp.util.UIEvent
 import javax.inject.Inject
@@ -81,7 +85,24 @@ class RecipeViewModel @Inject constructor(
 
     private fun onAddToShoppingListEvent() {
         viewModelScope.launch {
-            shoppingListRepository.saveShoppingList()
+            recipe?.let {
+                shoppingListRepository.saveShoppingList(
+                    ShoppingList(
+                        id = ShoppingListId.generate(),
+                        recipe = it,
+                        servings = servings,
+                        shoppingListItems = ingredients.map { ingredient ->
+                            ShoppingListItem(
+                                id = ShoppingListItemId.generate(),
+                                ingredient = ingredient,
+                                checked = false
+                            )
+                        }
+                    )
+                )
+
+                _uiEvent.send(UIEvent.ShowSnackBar("Added new recipe to shopping list"))
+            }
         }
     }
 

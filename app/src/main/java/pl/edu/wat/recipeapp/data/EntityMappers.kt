@@ -82,6 +82,7 @@ class ShoppingListWithItemsEntityMapper(private val recipe: RecipeWithIngredient
     override fun toDomain(from: ShoppingListWithItems): ShoppingList = ShoppingList(
         id = ShoppingListId(from.shoppingList.id),
         recipe = RecipeWithIngredientsBiMapper.toDomain(recipe),
+        servings = from.shoppingList.servings,
         shoppingListItems = from.shoppingListItems.map { item ->
             ShoppingListItem(
                 id = ShoppingListItemId(item.id),

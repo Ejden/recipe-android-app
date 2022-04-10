@@ -1,11 +1,14 @@
 package pl.edu.wat.recipeapp.ui.views.shoppinglists
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import pl.edu.wat.recipeapp.domain.RecipeRepository
 import pl.edu.wat.recipeapp.domain.ShoppingListRepository
+import pl.edu.wat.recipeapp.navigation.NavigationRoute
 import pl.edu.wat.recipeapp.util.UIEvent
 import javax.inject.Inject
 
@@ -20,10 +23,17 @@ class ShoppingListsViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     fun onEvent(event: ShoppingListsEvent) = when (event) {
-        is ShoppingListsEvent.GoToShoppingListsItems -> onGoToShoppingList(event)
+        is ShoppingListsEvent.GoToShoppingListItems -> onGoToShoppingList(event)
     }
 
-    private fun onGoToShoppingList(event: ShoppingListsEvent.GoToShoppingListsItems) {
-        // TODO
+    private fun onGoToShoppingList(event: ShoppingListsEvent.GoToShoppingListItems) {
+        viewModelScope.launch {
+            _uiEvent.send(
+                UIEvent.Navigate(
+                    NavigationRoute.ShoppingListItems,
+                    listOf(event.id.toString())
+                )
+            )
+        }
     }
 }

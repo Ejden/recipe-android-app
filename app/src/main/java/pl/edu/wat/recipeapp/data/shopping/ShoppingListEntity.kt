@@ -8,5 +8,6 @@ import java.util.UUID
 data class ShoppingListEntity(
     @PrimaryKey(autoGenerate = false)
     val id: UUID,
-    val recipeId: UUID
+    val recipeId: UUID,
+    val servings: Int
 )

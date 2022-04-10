@@ -24,8 +24,12 @@ fun NavigationView(navController: NavHostController) {
         composable(route = NavigationRoute.CreateRecipe.rawRoute) {
             CreateRecipeView()
         }
-        composable(route = NavigationRoute.ShoppingList.rawRoute) {
-            ShoppingListView()
+        composable(route = NavigationRoute.ShoppingLists.rawRoute) {
+            ShoppingListView(
+                onNavigate = {
+                    navController.navigate(it.route.withArgs(it.args))
+                }
+            )
         }
         composable(route = NavigationRoute.Profile.rawRoute) {
             ProfileView(

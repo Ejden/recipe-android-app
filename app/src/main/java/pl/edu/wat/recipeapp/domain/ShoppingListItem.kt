@@ -9,4 +9,8 @@ data class ShoppingListItem(
 )
 
 @JvmInline
-value class ShoppingListItemId(val raw: UUID)
+value class ShoppingListItemId(val raw: UUID) {
+    companion object {
+        fun generate() = ShoppingListItemId(UUID.randomUUID())
+    }
+}

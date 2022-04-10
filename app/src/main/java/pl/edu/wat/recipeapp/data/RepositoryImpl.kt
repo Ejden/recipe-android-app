@@ -98,7 +98,8 @@ class RepositoryImpl(
 
 private fun ShoppingList.toEntity() = ShoppingListEntity(
     id = id.raw,
-    recipeId = recipe.id.raw
+    recipeId = recipe.id.raw,
+    servings = servings
 )
 
 private fun ShoppingListItem.toEntity(shoppingListId: ShoppingListId) = ShoppingListItemEntity(
