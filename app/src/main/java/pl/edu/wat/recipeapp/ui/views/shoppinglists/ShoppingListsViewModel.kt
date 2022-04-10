@@ -31,7 +31,7 @@ class ShoppingListsViewModel @Inject constructor(
             _uiEvent.send(
                 UIEvent.Navigate(
                     NavigationRoute.ShoppingListItems,
-                    listOf(event.id.toString())
+                    listOf(event.id.raw.toString())
                 )
             )
         }

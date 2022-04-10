@@ -6,6 +6,8 @@ import pl.edu.wat.recipeapp.data.recipe.IngredientEntity
 import pl.edu.wat.recipeapp.data.recipe.RecipeEntity
 import pl.edu.wat.recipeapp.data.relations.RecipeWithIngredients
 import pl.edu.wat.recipeapp.data.relations.ShoppingListWithItems
+import pl.edu.wat.recipeapp.data.shopping.ShoppingListEntity
+import pl.edu.wat.recipeapp.data.shopping.ShoppingListItemEntity
 import pl.edu.wat.recipeapp.domain.Ingredient
 import pl.edu.wat.recipeapp.domain.IngredientId
 import pl.edu.wat.recipeapp.domain.MeasurementUnit
@@ -92,5 +94,22 @@ class ShoppingListWithItemsEntityMapper(private val recipe: RecipeWithIngredient
                 checked = item.checked
             )
         }
+    )
+}
+
+object ShoppingListMapper : ToEntityMapper<ShoppingList, ShoppingListEntity> {
+    override fun toEntity(from: ShoppingList): ShoppingListEntity = ShoppingListEntity(
+        id = from.id.raw,
+        recipeId = from.recipe.id.raw,
+        servings = from.servings
+    )
+}
+
+class ShoppingListItemMapper(private val shoppingListId: ShoppingListId) : ToEntityMapper<ShoppingListItem, ShoppingListItemEntity> {
+    override fun toEntity(from: ShoppingListItem): ShoppingListItemEntity = ShoppingListItemEntity(
+        id = from.id.raw,
+        shoppingListId = shoppingListId.raw,
+        checked = from.checked,
+        ingredientId = from.ingredient.id.raw
     )
 }

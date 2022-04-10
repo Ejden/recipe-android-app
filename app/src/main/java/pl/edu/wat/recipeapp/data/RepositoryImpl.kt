@@ -70,41 +70,50 @@ class RepositoryImpl(
         }
 
     @Transaction
-    override suspend fun saveShoppingList(shoppingList: ShoppingList) {
+    override suspend fun saveShoppingList(
+        shoppingList: ShoppingList
+    ) = AsyncCallHandlers.handleDbCall(
+        argument = shoppingList,
+        domainMapper = ShoppingListMapper
+    ) {
         shoppingList.shoppingListItems.forEach { item ->
-            saveShoppingListItem(item, shoppingList.id)
+            saveShoppingListItem(
+                item,
+                shoppingList.id
+            )
         }
-        shoppingListRepository.saveShoppingList(shoppingList.toEntity())
+        shoppingListRepository.saveShoppingList(it)
     }
 
+    @Transaction
     override suspend fun saveShoppingListItem(
         shoppingListItem: ShoppingListItem,
         shoppingListId: ShoppingListId
+    ) = AsyncCallHandlers.handleDbCall(
+        argument = shoppingListItem,
+        domainMapper = ShoppingListItemMapper(shoppingListId)
     ) {
-        shoppingListRepository.saveShoppingListItem(shoppingListItem.toEntity(shoppingListId))
+        shoppingListRepository.saveShoppingListItem(it)
     }
 
-    override suspend fun removeShoppingList(shoppingList: ShoppingList) {
-        shoppingListRepository.removeShoppingList(shoppingList.toEntity())
+    @Transaction
+    override suspend fun removeShoppingList(
+        shoppingList: ShoppingList
+    ) = AsyncCallHandlers.handleDbCall(
+        argument = shoppingList,
+        domainMapper = ShoppingListMapper
+    ) {
+        shoppingListRepository.removeShoppingList(it)
     }
 
+    @Transaction
     override suspend fun removeShoppingListItem(
         shoppingListItem: ShoppingListItem,
         shoppingListId: ShoppingListId
+    ) = AsyncCallHandlers.handleDbCall(
+        argument = shoppingListItem,
+        domainMapper = ShoppingListItemMapper(shoppingListId)
     ) {
-        shoppingListRepository.removeShoppingListItem(shoppingListItem.toEntity(shoppingListId))
+        shoppingListRepository.removeShoppingListItem(it)
     }
 }
-
-private fun ShoppingList.toEntity() = ShoppingListEntity(
-    id = id.raw,
-    recipeId = recipe.id.raw,
-    servings = servings
-)
-
-private fun ShoppingListItem.toEntity(shoppingListId: ShoppingListId) = ShoppingListItemEntity(
-    id = id.raw,
-    shoppingListId = shoppingListId.raw,
-    ingredientId = ingredient.id.raw,
-    checked = checked
-)

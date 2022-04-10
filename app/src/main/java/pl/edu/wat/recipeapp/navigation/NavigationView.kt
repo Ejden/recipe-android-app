@@ -11,15 +11,18 @@ import pl.edu.wat.recipeapp.ui.views.developermenu.DeveloperMenuView
 import pl.edu.wat.recipeapp.ui.views.home.HomeView
 import pl.edu.wat.recipeapp.ui.views.profile.ProfileView
 import pl.edu.wat.recipeapp.ui.views.recipe.RecipeView
+import pl.edu.wat.recipeapp.ui.views.shoppinglist.ShoppingListItemsView
 import pl.edu.wat.recipeapp.ui.views.shoppinglists.ShoppingListView
 
 @Composable
 fun NavigationView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = NavigationRoute.Home.rawRoute) {
         composable(route = NavigationRoute.Home.rawRoute) {
-            HomeView(onNavigate = {
-                navController.navigate(it.route.withArgs(it.args))
-            })
+            HomeView(
+                onNavigate = {
+                    navController.navigate(it.route.withArgs(it.args))
+                }
+            )
         }
         composable(route = NavigationRoute.CreateRecipe.rawRoute) {
             CreateRecipeView()
@@ -54,6 +57,16 @@ fun NavigationView(navController: NavHostController) {
                     navController.navigate(it.route.withoutArgs())
                 }
             )
+        }
+        composable(
+            route = NavigationRoute.ShoppingListItems.rawRoute + "/{listId}",
+            arguments = listOf(
+                navArgument("listId") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            ShoppingListItemsView()
         }
         composable(route = NavigationRoute.DeveloperMenu.rawRoute) {
             DeveloperMenuView()
