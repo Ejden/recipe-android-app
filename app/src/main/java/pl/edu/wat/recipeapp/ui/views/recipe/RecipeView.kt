@@ -8,6 +8,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -31,12 +32,16 @@ fun RecipeView(
     viewModel: RecipeViewModel = hiltViewModel()
 ) {
     val recipe = viewModel.recipe
+    val scaffoldState = rememberScaffoldState()
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is UIEvent.Navigate -> onNavigate(event)
                 is UIEvent.GoBack -> onBackPressed()
+                is UIEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(event.message)
+                }
             }
         }
     }
@@ -56,13 +61,19 @@ fun RecipeView(
         }
     } else {
         Scaffold(
+            scaffoldState = scaffoldState,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = 60.dp)
         ) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 item {
-                    RecipeImageBoxView(recipe)
+                    RecipeImageBoxView(recipe) {
+                        when (it) {
+                            is RecipeEvent.GoBack -> onBackPressed()
+                            else -> Unit
+                        }
+                    }
                 }
                 item {
                     Divider(thickness = 1.dp, color = VeryLightGray)

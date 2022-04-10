@@ -9,4 +9,6 @@ sealed class UIEvent {
     ): UIEvent()
 
     object GoBack : UIEvent()
+
+    data class ShowSnackBar(val message: String) : UIEvent()
 }

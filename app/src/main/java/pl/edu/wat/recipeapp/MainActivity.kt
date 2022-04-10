@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                                 ),
                                 NavigationItem(
                                     name = "Shopping",
-                                    route = NavigationRoute.ShoppingList,
+                                    route = NavigationRoute.ShoppingLists,
                                     icon = Icons.Default.ShoppingCart
                                 ),
                                 NavigationItem(
