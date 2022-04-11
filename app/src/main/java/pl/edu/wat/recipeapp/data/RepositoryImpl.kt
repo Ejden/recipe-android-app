@@ -44,6 +44,13 @@ class RepositoryImpl(
     }
 
     @Transaction
+    override fun getAllFavouriteRecipes(): Flow<List<Recipe>> = CallHandlers.handleDbCall(
+        entityMapper = RecipeEntityFlowMapper
+    ) {
+        recipeRepository.getAllFavouriteRecipes()
+    }
+
+    @Transaction
     override suspend fun getShoppingList(id: ShoppingListId): ShoppingList {
         val shoppingList = shoppingListRepository.getShoppingList(id.raw)
         val recipe = recipeRepository.findRecipe(shoppingList.shoppingList.recipeId)

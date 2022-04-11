@@ -105,7 +105,8 @@ object ShoppingListMapper : ToEntityMapper<ShoppingList, ShoppingListEntity> {
     )
 }
 
-class ShoppingListItemMapper(private val shoppingListId: ShoppingListId) : ToEntityMapper<ShoppingListItem, ShoppingListItemEntity> {
+class ShoppingListItemMapper(private val shoppingListId: ShoppingListId)
+    : ToEntityMapper<ShoppingListItem, ShoppingListItemEntity> {
     override fun toEntity(from: ShoppingListItem): ShoppingListItemEntity = ShoppingListItemEntity(
         id = from.id.raw,
         shoppingListId = shoppingListId.raw,

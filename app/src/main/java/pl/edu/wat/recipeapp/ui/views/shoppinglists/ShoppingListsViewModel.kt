@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import pl.edu.wat.recipeapp.domain.RecipeRepository
 import pl.edu.wat.recipeapp.domain.ShoppingListRepository
 import pl.edu.wat.recipeapp.navigation.NavigationRoute
 import pl.edu.wat.recipeapp.util.UIEvent
@@ -14,8 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShoppingListsViewModel @Inject constructor(
-    private val shoppingRepository: ShoppingListRepository,
-    private val recipeRepository: RecipeRepository
+    shoppingRepository: ShoppingListRepository,
 ) : ViewModel() {
     val shoppingLists = shoppingRepository.getAllShoppingLists()
 

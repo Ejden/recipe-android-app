@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -30,7 +31,7 @@ fun ShoppingListView(
     viewModel: ShoppingListsViewModel = hiltViewModel(),
     onNavigate: (UIEvent.Navigate) -> Unit
 ) {
-    val shoppingLists = viewModel.shoppingLists.collectAsState(emptyList())
+    val shoppingLists by viewModel.shoppingLists.collectAsState(emptyList())
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
@@ -41,7 +42,7 @@ fun ShoppingListView(
         }
     }
 
-    if (shoppingLists.value.isEmpty()) {
+    if (shoppingLists.isEmpty()) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -81,9 +82,9 @@ fun ShoppingListView(
             item {
                 Divider(color = VeryLightGray)
             }
-            items(shoppingLists.value.size) {
+            items(shoppingLists.size) {
                 ShoppingListItem(
-                    shoppingList = shoppingLists.value[it],
+                    shoppingList = shoppingLists[it],
                     modifier = Modifier.padding(top = MaterialTheme.spacing.small)
                 ) { list ->
                     viewModel.onEvent(ShoppingListsEvent.GoToShoppingListItems(list.id))
