@@ -9,7 +9,7 @@ import androidx.navigation.navArgument
 import pl.edu.wat.recipeapp.ui.views.createrecipe.CreateRecipeView
 import pl.edu.wat.recipeapp.ui.views.developermenu.DeveloperMenuView
 import pl.edu.wat.recipeapp.ui.views.home.HomeView
-import pl.edu.wat.recipeapp.ui.views.profile.ProfileView
+import pl.edu.wat.recipeapp.ui.views.favorite.ProfileView
 import pl.edu.wat.recipeapp.ui.views.recipe.RecipeView
 import pl.edu.wat.recipeapp.ui.views.shoppinglist.ShoppingListItemsView
 import pl.edu.wat.recipeapp.ui.views.shoppinglists.ShoppingListView
@@ -25,7 +25,11 @@ fun NavigationView(navController: NavHostController) {
             )
         }
         composable(route = NavigationRoute.CreateRecipe.rawRoute) {
-            CreateRecipeView()
+            CreateRecipeView(
+                onNavigate = {
+                    navController.navigate(it.route.withArgs(it.args))
+                }
+            )
         }
         composable(route = NavigationRoute.ShoppingLists.rawRoute) {
             ShoppingListView(
@@ -34,7 +38,7 @@ fun NavigationView(navController: NavHostController) {
                 }
             )
         }
-        composable(route = NavigationRoute.Profile.rawRoute) {
+        composable(route = NavigationRoute.Favorites.rawRoute) {
             ProfileView(
                 onNavigate = {
                     navController.navigate(it.route.withArgs(it.args))

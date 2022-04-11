@@ -28,6 +28,7 @@ import pl.edu.wat.recipeapp.ui.theme.Blue
 import pl.edu.wat.recipeapp.ui.theme.LightGray
 import pl.edu.wat.recipeapp.ui.theme.spacing
 import pl.edu.wat.recipeapp.ui.views.recipe.RecipeEvent
+import pl.edu.wat.recipeapp.util.toPrintable
 
 @Composable
 fun RecipeIngredientsView(
@@ -145,7 +146,7 @@ fun RecipeIngredientsView(
             modifier = Modifier
                 .padding(top = MaterialTheme.spacing.small)
                 .fillMaxWidth(),
-            onClick = { onEvent(RecipeEvent.AddToShoppingList) }
+            onClick = { onEvent(RecipeEvent.AddToShoppingList) },
         ) {
             Text(
                 text = stringResource(id = R.string.add_to_shopping_list),
@@ -154,7 +155,3 @@ fun RecipeIngredientsView(
         }
     }
 }
-
-private fun Double.toPrintable() =
-    if (this % 1 == 0.0) "%.0f".format(this)
-    else "%.2f".format(this)

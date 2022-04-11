@@ -1,6 +1,7 @@
 package pl.edu.wat.recipeapp.ui.viewcomponents
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -19,6 +20,8 @@ import pl.edu.wat.recipeapp.ui.theme.Blue
 import pl.edu.wat.recipeapp.ui.theme.DarkGray
 import pl.edu.wat.recipeapp.ui.theme.White
 
+val NAVIGATION_BAR_HEIGHT = 55.dp
+
 data class NavigationItem(
     val name: String,
     val route: NavigationRoute,
@@ -34,7 +37,7 @@ fun NavigationBarView(
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
     BottomNavigation(
-        modifier = modifier,
+        modifier = modifier.height(NAVIGATION_BAR_HEIGHT),
         backgroundColor = DarkGray,
         elevation = 5.dp
     ) {

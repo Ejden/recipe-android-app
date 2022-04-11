@@ -25,4 +25,10 @@
     <string name="shopping_list">Shopping List</string>
     <string name="added_to_shopping_list">Added to shopping list</string>
     <string name="no_shopping_lists">Looks like you don\'t have any shopping lists</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="low_priced">Low priced</string>
+    <string name="medium_priced">Medium priced</string>
+    <string name="high_priced">High priced</string>
 </resources>

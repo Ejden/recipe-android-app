@@ -1,4 +1,4 @@
-package pl.edu.wat.recipeapp.ui.views.profile
+package pl.edu.wat.recipeapp.ui.views.favorite
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
