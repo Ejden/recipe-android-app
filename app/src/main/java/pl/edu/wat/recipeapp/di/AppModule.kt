@@ -6,9 +6,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import pl.edu.wat.recipeapp.data.RecipeDatabase
-import pl.edu.wat.recipeapp.data.RecipeRepositoryImpl
+import pl.edu.wat.recipeapp.data.Database
+import pl.edu.wat.recipeapp.data.RepositoryImpl
 import pl.edu.wat.recipeapp.domain.RecipeRepository
+import pl.edu.wat.recipeapp.domain.ShoppingListRepository
 import javax.inject.Singleton
 
 @Module
@@ -16,13 +17,19 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideRecipeDatabase(app: Application): RecipeDatabase {
-        return Room.databaseBuilder(app, RecipeDatabase::class.java, "recipe_db").build()
+    fun provideRecipeDatabase(app: Application): Database {
+        return Room.databaseBuilder(app, Database::class.java, "recipe_db").build()
     }
 
     @Provides
     @Singleton
-    fun provideRecipeRepository(db: RecipeDatabase): RecipeRepository {
-        return RecipeRepositoryImpl(db.repository)
+    fun provideRecipeRepository(db: Database): RecipeRepository {
+        return RepositoryImpl(db.recipeDao, db.shoppingListDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideShoppingListRepository(db: Database): ShoppingListRepository {
+        return RepositoryImpl(db.recipeDao, db.shoppingListDao)
     }
 }

@@ -1,9 +1,8 @@
-package pl.edu.wat.recipeapp.data
+package pl.edu.wat.recipeapp.data.recipe
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
@@ -21,8 +20,8 @@ interface RecipeDao {
     suspend fun insertIngredient(ingredient: IngredientEntity)
 
     @Transaction
-    @Delete
-    suspend fun removeRecipe(recipe: RecipeEntity)
+    @Query("DELETE FROM recipes WHERE id = :recipeId")
+    suspend fun removeRecipe(recipeId: UUID)
 
     @Transaction
     @Query("SELECT * FROM recipes WHERE id = :id")

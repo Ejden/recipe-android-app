@@ -22,6 +22,9 @@
     <string name="kilogram">kg</string>
     <string name="unit"/>
     <string name="add_to_shopping_list">Add to shopping list</string>
+    <string name="shopping_list">Shopping List</string>
+    <string name="added_to_shopping_list">Added to shopping list</string>
+    <string name="no_shopping_lists">Looks like you don\'t have any shopping lists</string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
