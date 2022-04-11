@@ -23,6 +23,7 @@ import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.spacing
 import pl.edu.wat.recipeapp.ui.views.createrecipe.CreateRecipeEvent
 import pl.edu.wat.recipeapp.ui.views.createrecipe.CreateRecipeViewModel
+import pl.edu.wat.recipeapp.util.toPrintable
 
 @Composable
 fun EditIngredientsViewItem(
@@ -59,7 +60,3 @@ fun EditIngredientsViewItem(
         }
     }
 }
-
-private fun Double.toPrintable() =
-    if (this % 1 == 0.0) "%.0f".format(this)
-    else "%.2f".format(this)

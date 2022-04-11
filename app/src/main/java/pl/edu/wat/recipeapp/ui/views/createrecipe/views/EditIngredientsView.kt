@@ -68,7 +68,7 @@ fun EditIngredientsView(
             value = viewModel.ingredientQuantity,
             onValueChange = { value ->
                 viewModel.onEvent(
-                    CreateRecipeEvent.OnIngredientQuantityChange(value.filter { it.isDigit() })
+                    CreateRecipeEvent.OnIngredientQuantityChange(value)
                 )
             },
             keyboardOptions = KeyboardOptions(

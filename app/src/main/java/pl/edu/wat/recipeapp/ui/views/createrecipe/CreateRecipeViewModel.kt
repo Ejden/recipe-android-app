@@ -64,7 +64,7 @@ class CreateRecipeViewModel @Inject constructor(
         is CreateRecipeEvent.OnPricingChange -> pricing = event.pricing
         is CreateRecipeEvent.OnSave -> onSaveEvent()
         is CreateRecipeEvent.OnIngredientNameChange -> ingredientName = event.name
-        is CreateRecipeEvent.OnIngredientQuantityChange -> ingredientQuantity = event.quantity
+        is CreateRecipeEvent.OnIngredientQuantityChange -> onIngredientQuantityChange(event.quantity)
         is CreateRecipeEvent.OnIngredientUnitChange -> ingredientUnit = event.unit
         is CreateRecipeEvent.OnIngredientAdd -> onIngredientAdd()
         is CreateRecipeEvent.OnIngredientRemove -> onIngredientRemove(event.ingredientId)
@@ -86,11 +86,20 @@ class CreateRecipeViewModel @Inject constructor(
                     ingredients = ingredients,
                 )
             )
-            _uiEvent.send(UIEvent.Navigate(
-                route = NavigationRoute.Recipe,
-                args = listOf(id.printable()),
-            ))
+            _uiEvent.send(
+                UIEvent.Navigate(
+                    route = NavigationRoute.Recipe,
+                    args = listOf(id.printable()),
+                )
+            )
         }
+    }
+
+    private fun onIngredientQuantityChange(quantity: String) {
+        ingredientQuantity = quantity
+            .split('.', ',')
+            .take(2)
+            .joinToString(".") { it.filter { char -> char.isDigit() } }
     }
 
 
@@ -113,12 +122,20 @@ class CreateRecipeViewModel @Inject constructor(
         ingredients = ingredients + Ingredient(
             id = IngredientId.generate(),
             name = ingredientName,
-            quantity = ingredientQuantity.toDouble(),
+            quantity = ingredientQuantity.toDoubleWithTrailingZero(),
             unit = ingredientUnit,
         )
         ingredientName = ""
         ingredientQuantity = ""
         ingredientUnit = MeasurementUnit.UNIT
+    }
+
+    private fun String.toDoubleWithTrailingZero(): Double {
+        return if (this.endsWith('.')) {
+            "${this}0".toDouble()
+        } else {
+            this.toDouble()
+        }
     }
 
     private fun isIngredientValid(): Boolean {
