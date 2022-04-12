@@ -14,6 +14,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.flow.collect
 import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.navigation.NavigationRoute
 import pl.edu.wat.recipeapp.ui.theme.Blue
@@ -35,6 +37,15 @@ fun FavouriteView(
     onNavigate: (UIEvent.Navigate) -> Unit
 ) {
     val favourites by viewModel.favourites.collectAsState(initial = emptyList())
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UIEvent.Navigate -> onNavigate(event)
+                else -> Unit
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
