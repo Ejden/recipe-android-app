@@ -44,8 +44,8 @@ class MainActivity : ComponentActivity() {
                                     icon = Icons.Default.ShoppingCart
                                 ),
                                 NavigationItem(
-                                    name = "Likes",
-                                    route = NavigationRoute.Favorites,
+                                    name = "Favourites",
+                                    route = NavigationRoute.Favourites,
                                     icon = Icons.Default.Favorite
                                 )
                             ),

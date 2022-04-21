@@ -30,4 +30,8 @@ interface RecipeDao {
     @Transaction
     @Query("SELECT * FROM recipes")
     fun getAllRecipes(): Flow<List<RecipeWithIngredients>>
+
+    @Transaction
+    @Query("SELECT * FROM recipes WHERE isFavourite = 1")
+    fun getAllFavouriteRecipes(): Flow<List<RecipeWithIngredients>>
 }
