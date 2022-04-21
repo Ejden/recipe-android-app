@@ -1,13 +1,16 @@
 package pl.edu.wat.recipeapp.ui.views.createrecipe
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -24,11 +27,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.collect
 import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.domain.RecipeDifficulty
 import pl.edu.wat.recipeapp.domain.RecipePricing
+import pl.edu.wat.recipeapp.navigation.NavigationRoute
+import pl.edu.wat.recipeapp.ui.theme.Blue
 import pl.edu.wat.recipeapp.ui.theme.DarkGray
 import pl.edu.wat.recipeapp.ui.theme.VeryLightGray
 import pl.edu.wat.recipeapp.ui.theme.spacing
@@ -171,6 +177,19 @@ fun CreateRecipeView(
                 onClick = { viewModel.onEvent(CreateRecipeEvent.OnSave) }
             ) {
                 Text(text = stringResource(id = R.string.create))
+            }
+        }
+        item {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .width(128.dp)
+                    .background(Blue)
+                    .clickable {
+                        onNavigate(UIEvent.Navigate(NavigationRoute.DeveloperMenu))
+                    }
+            ) {
+                Text(text = stringResource(id = R.string.developer_menu))
             }
         }
     }

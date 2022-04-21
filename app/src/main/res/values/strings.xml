@@ -9,6 +9,7 @@
     <string name="create_new_recipe">Create new recipe</string>
     <string name="create_recipe_msg">Add recipes using Create Screen from bottom menu</string>
     <string name="cup">cup</string>
+    <string name="developer_menu">Developer menu</string>
     <string name="difficulty">Difficulty</string>
     <string name="easy">Easy</string>
     <string name="empty_recipe_list">You have no recipes</string>
@@ -23,6 +24,7 @@
     <string name="medium">Medium</string>
     <string name="medium_priced">Medium priced</string>
     <string name="milliliter">ml</string>
+    <string name="no_favourites">You have no favourite recipes (yet)</string>
     <string name="no_shopping_lists">Looks like you don\'t have any shopping lists</string>
     <string name="pinch">pinch</string>
     <string name="pricing">Pricing</string>

@@ -1,14 +1,11 @@
 package pl.edu.wat.recipeapp.ui.views.favourite
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -24,8 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.collect
 import pl.edu.wat.recipeapp.R
-import pl.edu.wat.recipeapp.navigation.NavigationRoute
-import pl.edu.wat.recipeapp.ui.theme.Blue
 import pl.edu.wat.recipeapp.ui.theme.VeryLightGray
 import pl.edu.wat.recipeapp.ui.theme.spacing
 import pl.edu.wat.recipeapp.ui.views.favourite.view.FavouriteViewItem
@@ -59,38 +54,36 @@ fun FavouriteView(
         )
         Divider(color = VeryLightGray)
 
-        LazyColumn(
-            modifier = Modifier
-                .padding(top = MaterialTheme.spacing.medium)
-                .fillMaxWidth(),
-            content = {
-                favourites.windowed(size = 2, step = 2, partialWindows = true).map { row ->
-                    item {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-                        ) {
-                            row.map {
-                                FavouriteViewItem(
-                                    modifier = Modifier.weight(1f),
-                                    favourite = it,
-                                )
+        if (favourites.isEmpty()) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(text = stringResource(id = R.string.no_favourites))
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.medium)
+                    .fillMaxWidth(),
+                content = {
+                    favourites.windowed(size = 2, step = 2, partialWindows = true).map { row ->
+                        item {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                            ) {
+                                row.map {
+                                    FavouriteViewItem(
+                                        modifier = Modifier.weight(1f),
+                                        favourite = it,
+                                    )
+                                }
                             }
                         }
                     }
-                }
-            })
-
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .width(128.dp)
-                .background(Blue)
-                .clickable {
-                    onNavigate(UIEvent.Navigate(NavigationRoute.DeveloperMenu))
-                }
-        ) {
-            Text(text = "Developer menu")
+                })
         }
     }
 }

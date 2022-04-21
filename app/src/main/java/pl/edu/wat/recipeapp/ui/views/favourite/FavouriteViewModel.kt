@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavouriteViewModel @Inject constructor(
-    repository: RecipeRepository
+    private val repository: RecipeRepository
 ) : ViewModel() {
 
     val favourites = repository.getAllFavouriteRecipes()
@@ -24,7 +24,7 @@ class FavouriteViewModel @Inject constructor(
 
     fun onEvent(event: FavouriteViewEvent) {
         when (event) {
-            is FavouriteViewEvent.RemoveRecipeFromFavourites -> TODO()
+            is FavouriteViewEvent.RemoveRecipeFromFavourites -> onRemoveRecipe(event.recipe)
             is FavouriteViewEvent.ShowRecipe -> onShowRecipe(event.recipe)
         }
     }
@@ -37,6 +37,12 @@ class FavouriteViewModel @Inject constructor(
                     args = listOf(recipe.id.printable()),
                 )
             )
+        }
+    }
+
+    private fun onRemoveRecipe(recipe: Recipe) {
+        viewModelScope.launch {
+            repository.insertRecipe(recipe = recipe.copy(isFavourite = false))
         }
     }
 

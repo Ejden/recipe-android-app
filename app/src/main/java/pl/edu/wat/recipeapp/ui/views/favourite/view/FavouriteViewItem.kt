@@ -6,14 +6,20 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -26,6 +32,7 @@ import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.domain.Recipe
 import pl.edu.wat.recipeapp.ui.theme.DarkBlack
 import pl.edu.wat.recipeapp.ui.theme.LightGray
+import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.spacing
 import pl.edu.wat.recipeapp.ui.views.favourite.FavouriteViewEvent
 import pl.edu.wat.recipeapp.ui.views.favourite.FavouriteViewModel
@@ -69,7 +76,28 @@ fun FavouriteViewItem(
                 .padding(MaterialTheme.spacing.small),
             verticalArrangement = Arrangement.Bottom,
         ) {
-            Text(text = favourite.name)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(.8f),
+                    text = favourite.name,
+                )
+                Icon(
+                    modifier = Modifier
+                        .width(16.dp)
+                        .clickable {
+                            viewModel.onEvent(
+                                FavouriteViewEvent.RemoveRecipeFromFavourites(favourite)
+                            )
+                        },
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Remove",
+                    tint = White,
+                )
+            }
         }
     }
 }
