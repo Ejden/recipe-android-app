@@ -27,7 +27,7 @@ import pl.edu.wat.recipeapp.ui.views.shoppinglists.views.ShoppingListItem
 import pl.edu.wat.recipeapp.util.UIEvent
 
 @Composable
-fun ShoppingListView(
+fun ShoppingListsView(
     viewModel: ShoppingListsViewModel = hiltViewModel(),
     onNavigate: (UIEvent.Navigate) -> Unit
 ) {
@@ -50,7 +50,7 @@ fun ShoppingListView(
                 .padding(bottom = 40.dp)
         ) {
             Text(
-                text = stringResource(id = R.string.shopping_list),
+                text = stringResource(id = R.string.shopping_lists),
                 style = MaterialTheme.typography.h1
             )
             Divider(color = VeryLightGray)
@@ -75,7 +75,7 @@ fun ShoppingListView(
         ) {
             item {
                 Text(
-                    text = stringResource(id = R.string.shopping_list),
+                    text = stringResource(id = R.string.shopping_lists),
                     style = MaterialTheme.typography.h1
                 )
             }
