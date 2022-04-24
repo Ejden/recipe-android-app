@@ -41,7 +41,7 @@ import pl.edu.wat.recipeapp.ui.views.favourite.FavouriteViewModel
 fun FavouriteViewItem(
     modifier: Modifier = Modifier,
     favourite: Recipe,
-    viewModel: FavouriteViewModel = hiltViewModel()
+    viewModel: FavouriteViewModel = hiltViewModel() // TODO: callbacks should be passed instead
 ) {
     Box(
         modifier = modifier

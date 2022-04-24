@@ -14,6 +14,7 @@
     <string name="easy">Easy</string>
     <string name="empty_recipe_list">You have no recipes</string>
     <string name="favourites">Favourites</string>
+    <string name="go_to_recipe">Go to the recipe</string>
     <string name="gram">g</string>
     <string name="hard">Hard</string>
     <string name="high_priced">High priced</string>
@@ -25,6 +26,7 @@
     <string name="medium_priced">Medium priced</string>
     <string name="milliliter">ml</string>
     <string name="no_favourites">You have no favourite recipes (yet)</string>
+    <string name="no_shopping_list_items">Nothing here…</string>
     <string name="no_shopping_lists">Looks like you don\'t have any shopping lists</string>
     <string name="pinch">pinch</string>
     <string name="pricing">Pricing</string>
@@ -32,9 +34,10 @@
     <string name="recipe_name">Recipe name</string>
     <string name="recipe_name_placeholder">e.g. Spaghetti Bolognese</string>
     <string name="rem_from_fav">Remove from favourite</string>
+    <string name="rem_shopping_list">Remove this shopping list</string>
     <string name="serving">serving</string>
     <string name="servings">servings</string>
-    <string name="shopping_list">Shopping List</string>
+    <string name="shopping_lists">Shopping Lists</string>
     <string name="start_cooking">Start cooking</string>
     <string name="tablespoon">tbsp</string>
     <string name="teaspoon">tsp</string>

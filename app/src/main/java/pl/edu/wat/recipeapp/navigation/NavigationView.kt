@@ -8,11 +8,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import pl.edu.wat.recipeapp.ui.views.createrecipe.CreateRecipeView
 import pl.edu.wat.recipeapp.ui.views.developermenu.DeveloperMenuView
-import pl.edu.wat.recipeapp.ui.views.home.HomeView
 import pl.edu.wat.recipeapp.ui.views.favourite.FavouriteView
+import pl.edu.wat.recipeapp.ui.views.home.HomeView
 import pl.edu.wat.recipeapp.ui.views.recipe.RecipeView
-import pl.edu.wat.recipeapp.ui.views.shoppinglist.ShoppingListItemsView
-import pl.edu.wat.recipeapp.ui.views.shoppinglists.ShoppingListView
+import pl.edu.wat.recipeapp.ui.views.shoppinglist.ShoppingListView
+import pl.edu.wat.recipeapp.ui.views.shoppinglists.ShoppingListsView
 
 @Composable
 fun NavigationView(navController: NavHostController) {
@@ -32,7 +32,7 @@ fun NavigationView(navController: NavHostController) {
             )
         }
         composable(route = NavigationRoute.ShoppingLists.rawRoute) {
-            ShoppingListView(
+            ShoppingListsView(
                 onNavigate = {
                     navController.navigate(it.route.withArgs(it.args))
                 }
@@ -70,7 +70,14 @@ fun NavigationView(navController: NavHostController) {
                 }
             )
         ) {
-            ShoppingListItemsView()
+            ShoppingListView(
+                onBackPressed = {
+                    navController.popBackStack()
+                },
+                onNavigate = {
+                    navController.navigate(it.route.withArgs(it.args))
+                }
+            )
         }
         composable(route = NavigationRoute.DeveloperMenu.rawRoute) {
             DeveloperMenuView()
