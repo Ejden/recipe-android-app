@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import pl.edu.wat.recipeapp.navigation.NavigationRoute
@@ -29,22 +30,22 @@ class MainActivity : ComponentActivity() {
                         NavigationBarView(
                             items = listOf(
                                 NavigationItem(
-                                    name = "Home",
+                                    name = stringResource(id = R.string.navbar_home),
                                     route = NavigationRoute.Home,
                                     icon = Icons.Default.Home
                                 ),
                                 NavigationItem(
-                                    name = "Create",
+                                    name = stringResource(id = R.string.navbar_create),
                                     route = NavigationRoute.CreateRecipe,
                                     icon = Icons.Default.Create
                                 ),
                                 NavigationItem(
-                                    name = "Shopping",
+                                    name = stringResource(id = R.string.navbar_shopping),
                                     route = NavigationRoute.ShoppingLists,
                                     icon = Icons.Default.ShoppingCart
                                 ),
                                 NavigationItem(
-                                    name = "Favourites",
+                                    name = stringResource(id = R.string.navbar_favourites),
                                     route = NavigationRoute.Favourites,
                                     icon = Icons.Default.Favorite
                                 )

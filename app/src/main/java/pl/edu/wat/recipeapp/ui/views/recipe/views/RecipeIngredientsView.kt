@@ -29,6 +29,7 @@ import pl.edu.wat.recipeapp.ui.theme.LightGray
 import pl.edu.wat.recipeapp.ui.theme.spacing
 import pl.edu.wat.recipeapp.ui.views.recipe.RecipeEvent
 import pl.edu.wat.recipeapp.util.toPrintable
+import java.util.Locale.ENGLISH
 
 @Composable
 fun RecipeIngredientsView(
@@ -46,7 +47,7 @@ fun RecipeIngredientsView(
             )
     ) {
         Text(
-            text = stringResource(id = R.string.ingredients),
+            text = stringResource(id = R.string.ingredients).uppercase(ENGLISH),
             style = MaterialTheme.typography.body1,
             fontWeight = FontWeight.Bold
         )
@@ -138,7 +139,7 @@ fun RecipeIngredientsView(
                 }
             }
         }
-        
+
         Button(
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Blue

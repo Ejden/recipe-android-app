@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.domain.ShoppingListItem
 import pl.edu.wat.recipeapp.ui.theme.Blue
 import pl.edu.wat.recipeapp.ui.theme.VeryLightGray
@@ -72,7 +73,7 @@ fun ShoppingListItemView(
                             .width(18.dp)
                             .clickable { onEvent(ShoppingListEvent.OnItemRemoved(item)) },
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Remove",
+                        contentDescription = stringResource(id = R.string.remove),
                         tint = White,
                     )
                 }

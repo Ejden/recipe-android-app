@@ -41,7 +41,7 @@ fun RecipeActionPanelView(
                 .fillMaxWidth()
         ) {
             val favIconColor = if (isFavouriteRecipe) Yellow else White
-            val favText = if (isFavouriteRecipe) R.string.rem_from_fav else R.string.add_to_fav
+            val favText = if (isFavouriteRecipe) R.string.remove_from_fav else R.string.add_to_fav
             Icon(
                 imageVector = Icons.Default.Favorite,
                 contentDescription = stringResource(id = R.string.add_to_fav),

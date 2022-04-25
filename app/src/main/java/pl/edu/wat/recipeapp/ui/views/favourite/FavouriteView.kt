@@ -74,10 +74,11 @@ fun FavouriteView(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                             ) {
-                                row.map {
+                                row.map { recipe ->
                                     FavouriteViewItem(
                                         modifier = Modifier.weight(1f),
-                                        favourite = it,
+                                        favourite = recipe,
+                                        onEvent = { viewModel.onEvent(it) },
                                     )
                                 }
                             }

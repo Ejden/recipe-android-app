@@ -17,17 +17,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.domain.Ingredient
 import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.spacing
 import pl.edu.wat.recipeapp.ui.views.createrecipe.CreateRecipeEvent
-import pl.edu.wat.recipeapp.ui.views.createrecipe.CreateRecipeViewModel
 import pl.edu.wat.recipeapp.util.toPrintable
 
 @Composable
 fun EditIngredientsViewItem(
-    viewModel: CreateRecipeViewModel = hiltViewModel(),
+    onEvent: (CreateRecipeEvent) -> Unit,
     ingredient: Ingredient,
 ) {
     val (id, name, quantity, unit) = ingredient
@@ -48,12 +47,12 @@ fun EditIngredientsViewItem(
             IconButton(
                 modifier = Modifier.size(14.dp),
                 onClick = {
-                    viewModel.onEvent(CreateRecipeEvent.OnIngredientRemove(id))
+                    onEvent(CreateRecipeEvent.OnIngredientRemove(id))
                 },
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete",
+                    contentDescription = stringResource(id = R.string.delete),
                     tint = White,
                 )
             }
