@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.domain.ShoppingList
@@ -53,7 +54,7 @@ fun ShoppingListItem(
         )
         Icon(
             imageVector = Icons.Default.ArrowForward,
-            contentDescription = "open",
+            contentDescription = stringResource(id = R.string.open),
             tint = White,
             modifier = Modifier
                 .weight(1f)

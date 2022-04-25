@@ -117,7 +117,7 @@ fun RecipeDifficultyView(recipe: Recipe) {
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.chief),
-                    contentDescription = "difficulty",
+                    contentDescription = stringResource(id = R.string.difficulty),
                     tint = iconColor,
                     modifier = Modifier
                         .size(64.dp)

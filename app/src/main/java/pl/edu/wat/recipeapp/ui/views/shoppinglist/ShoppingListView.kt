@@ -80,7 +80,7 @@ fun ShoppingListView(
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.spaghetti_bolognese),
-                        contentDescription = "foo",
+                        contentDescription = viewModel.shoppingList?.recipe?.name ?: "",
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop,
                     )
@@ -95,7 +95,7 @@ fun ShoppingListView(
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(id = R.string.back),
                             tint = White
                         )
                     }
@@ -144,7 +144,7 @@ fun ShoppingListView(
                     ),
                     onClick = { viewModel.onEvent(ShoppingListEvent.OnRemoveClick) },
                 ) {
-                    Text(text = stringResource(id = R.string.rem_shopping_list))
+                    Text(text = stringResource(id = R.string.remove_shopping_list))
                 }
             }
         }

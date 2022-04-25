@@ -15,26 +15,30 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import pl.edu.wat.recipeapp.R
+import pl.edu.wat.recipeapp.domain.Ingredient
 import pl.edu.wat.recipeapp.domain.MeasurementUnit
 import pl.edu.wat.recipeapp.ui.theme.Blue
 import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.viewcomponents.DropdownMenuField
 import pl.edu.wat.recipeapp.ui.viewcomponents.DropdownValue
 import pl.edu.wat.recipeapp.ui.views.createrecipe.CreateRecipeEvent
-import pl.edu.wat.recipeapp.ui.views.createrecipe.CreateRecipeViewModel
 
 @Composable
 fun EditIngredientsView(
-    viewModel: CreateRecipeViewModel = hiltViewModel()
+    ingredients: List<Ingredient>,
+    newIngredientName: String,
+    newIngredientQuantity: String,
+    newIngredientUnit: MeasurementUnit,
+    onEvent: (CreateRecipeEvent) -> Unit,
 ) {
     Text(
-        text = "Ingredients",
+        text = stringResource(id = R.string.ingredients),
         fontSize = 20.sp,
     )
 
-    viewModel.ingredients.map {
-        EditIngredientsViewItem(ingredient = it)
+    ingredients.map {
+        EditIngredientsViewItem(ingredient = it, onEvent = onEvent)
     }
 
     TextField(
@@ -42,15 +46,15 @@ fun EditIngredientsView(
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = Color.Transparent,
         ),
-        value = viewModel.ingredientName,
+        value = newIngredientName,
         onValueChange = {
-            viewModel.onEvent(
+            onEvent(
                 CreateRecipeEvent.OnIngredientNameChange(it)
             )
         },
         label = {
             Text(
-                text = "Ingredient Name",
+                text = stringResource(id = R.string.ingredient_name),
                 style = MaterialTheme.typography.body1,
             )
         },
@@ -65,9 +69,9 @@ fun EditIngredientsView(
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.Transparent,
             ),
-            value = viewModel.ingredientQuantity,
+            value = newIngredientQuantity,
             onValueChange = { value ->
-                viewModel.onEvent(
+                onEvent(
                     CreateRecipeEvent.OnIngredientQuantityChange(value)
                 )
             },
@@ -76,7 +80,7 @@ fun EditIngredientsView(
             ),
             label = {
                 Text(
-                    text = "Quantity",
+                    text = stringResource(id = R.string.quantity),
                     style = MaterialTheme.typography.body1,
                 )
             },
@@ -91,10 +95,10 @@ fun EditIngredientsView(
                         label = stringResource(id = it.idRes)
                     )
                 },
-            currentValue = stringResource(id = viewModel.ingredientUnit.idRes),
-            label = "Unit",
+            currentValue = stringResource(id = newIngredientUnit.idRes),
+            label = stringResource(id = R.string.unit_label),
             onValueChange = {
-                viewModel.onEvent(
+                onEvent(
                     CreateRecipeEvent.OnIngredientUnitChange(
                         MeasurementUnit.valueOf(it)
                     )
@@ -105,13 +109,13 @@ fun EditIngredientsView(
 
     Button(
         modifier = Modifier.fillMaxWidth(),
-        onClick = { viewModel.onEvent(CreateRecipeEvent.OnIngredientAdd) },
+        onClick = { onEvent(CreateRecipeEvent.OnIngredientAdd) },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = White,
         ),
     ) {
         Text(
-            text = "Add Ingredient",
+            text = stringResource(id = R.string.add_ingredient),
             color = Blue
         )
     }

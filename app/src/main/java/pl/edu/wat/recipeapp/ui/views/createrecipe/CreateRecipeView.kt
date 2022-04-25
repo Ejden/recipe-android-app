@@ -168,7 +168,13 @@ fun CreateRecipeView(
                     .padding(all = MaterialTheme.spacing.medium),
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             ) {
-                EditIngredientsView()
+                EditIngredientsView(
+                    ingredients = viewModel.ingredients,
+                    newIngredientName = viewModel.ingredientName,
+                    newIngredientQuantity = viewModel.ingredientQuantity,
+                    newIngredientUnit = viewModel.ingredientUnit,
+                    onEvent = { viewModel.onEvent(it) },
+                )
             }
         }
         item {

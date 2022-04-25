@@ -26,8 +26,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.domain.Recipe
 import pl.edu.wat.recipeapp.ui.theme.DarkBlack
@@ -35,13 +35,12 @@ import pl.edu.wat.recipeapp.ui.theme.LightGray
 import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.spacing
 import pl.edu.wat.recipeapp.ui.views.favourite.FavouriteViewEvent
-import pl.edu.wat.recipeapp.ui.views.favourite.FavouriteViewModel
 
 @Composable
 fun FavouriteViewItem(
     modifier: Modifier = Modifier,
     favourite: Recipe,
-    viewModel: FavouriteViewModel = hiltViewModel() // TODO: callbacks should be passed instead
+    onEvent: (FavouriteViewEvent) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -50,7 +49,7 @@ fun FavouriteViewItem(
             .background(LightGray)
             .fillMaxWidth()
             .height(200.dp)
-            .clickable { viewModel.onEvent(FavouriteViewEvent.ShowRecipe(favourite)) },
+            .clickable { onEvent(FavouriteViewEvent.ShowRecipe(favourite)) },
     ) {
         Image(
             painter = painterResource(id = R.drawable.spaghetti_bolognese),
@@ -89,12 +88,12 @@ fun FavouriteViewItem(
                     modifier = Modifier
                         .width(16.dp)
                         .clickable {
-                            viewModel.onEvent(
+                            onEvent(
                                 FavouriteViewEvent.RemoveRecipeFromFavourites(favourite)
                             )
                         },
                     imageVector = Icons.Default.Close,
-                    contentDescription = "Remove",
+                    contentDescription = stringResource(id = R.string.remove),
                     tint = White,
                 )
             }

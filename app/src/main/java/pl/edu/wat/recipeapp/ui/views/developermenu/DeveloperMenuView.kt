@@ -8,7 +8,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.ui.theme.Blue
 
 @Composable
@@ -29,7 +31,7 @@ fun DeveloperMenuView(
                     viewModel.onEvent(DeveloperMenuEvent.AddSampleRecipe)
                 }
             ) {
-                Text(text = "Generate random recipe")
+                Text(text = stringResource(id = R.string.generate_random_recipe))
             }
         }
     }
