@@ -8,6 +8,7 @@ sealed class NavigationRoute(val rawRoute: String) {
     object Favourites : NavigationRoute("favourites")
     object Recipe : NavigationRoute("recipe")
     object DeveloperMenu : NavigationRoute("developer_menu")
+    object Cooking : NavigationRoute("cooking")
 
     fun withArgs(args: List<Any>) = buildString {
         append(rawRoute)

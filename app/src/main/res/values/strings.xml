@@ -34,11 +34,13 @@
     <string name="navbar_favourites">Favourites</string>
     <string name="navbar_home">Home</string>
     <string name="navbar_shopping">Shopping</string>
+    <string name="next_step">Next step</string>
     <string name="no_favourites">You have no favourite recipes (yet)</string>
     <string name="no_shopping_list_items">Nothing here…</string>
     <string name="no_shopping_lists">Looks like you don\'t have any shopping lists</string>
     <string name="open">Open</string>
     <string name="pinch">pinch</string>
+    <string name="previous_step">Previous step</string>
     <string name="pricing">Pricing</string>
     <string name="quantity">Quantity</string>
     <string name="recipe_loading_msg">Loading…</string>

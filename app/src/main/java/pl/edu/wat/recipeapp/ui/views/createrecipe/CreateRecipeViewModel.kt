@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import pl.edu.wat.recipeapp.domain.CookingStep
 import pl.edu.wat.recipeapp.domain.Ingredient
 import pl.edu.wat.recipeapp.domain.IngredientId
 import pl.edu.wat.recipeapp.domain.MeasurementUnit
@@ -46,6 +47,9 @@ class CreateRecipeViewModel @Inject constructor(
     var ingredients by mutableStateOf(listOf<Ingredient>())
         private set
 
+    var cookingSteps by mutableStateOf(listOf<CookingStep>())
+        private set
+
     // New ingredient
 
     var ingredientName by mutableStateOf("")
@@ -55,6 +59,14 @@ class CreateRecipeViewModel @Inject constructor(
         private set
 
     var ingredientUnit by mutableStateOf(MeasurementUnit.UNIT)
+        private set
+
+    // New cooking step
+
+    var cookingStepName by mutableStateOf("")
+        private set
+
+    var cookingStepDescription by mutableStateOf("")
         private set
 
     fun onEvent(event: CreateRecipeEvent) = when (event) {

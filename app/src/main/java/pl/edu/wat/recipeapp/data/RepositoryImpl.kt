@@ -23,15 +23,16 @@ class RepositoryImpl(
     @Transaction
     override suspend fun insertRecipe(recipe: Recipe) = AsyncCallHandlers.handleDbCall(
         argument = recipe,
-        domainMapper = RecipeWithIngredientsBiMapper
+        domainMapper = RecipeWithRelationsBiMapper
     ) {
         recipeRepository.insertRecipe(it.recipe)
         it.ingredients.forEach { ingredient -> recipeRepository.insertIngredient(ingredient) }
+        it.cookingSteps.forEach { cookingStep -> recipeRepository.insertCookingStep(cookingStep) }
     }
 
     @Transaction
     override suspend fun findRecipe(id: RecipeId): Recipe = AsyncCallHandlers.handleDbCall(
-        entityMapper = RecipeWithIngredientsBiMapper
+        entityMapper = RecipeWithRelationsBiMapper
     ) {
         recipeRepository.findRecipe(id.raw)
     }

@@ -12,7 +12,8 @@ data class Recipe(
     val portions: Int = 1,
     val isFavourite: Boolean = false,
     val pricing: RecipePricing = RecipePricing.LOW_PRICED,
-    val ingredients: List<Ingredient> = emptyList()
+    val ingredients: List<Ingredient> = emptyList(),
+    val cookingSteps: List<CookingStep> = emptyList(),
 )
 
 enum class RecipeDifficulty(
