@@ -41,6 +41,7 @@ import pl.edu.wat.recipeapp.ui.theme.spacing
 import pl.edu.wat.recipeapp.ui.viewcomponents.DropdownMenuField
 import pl.edu.wat.recipeapp.ui.viewcomponents.DropdownValue
 import pl.edu.wat.recipeapp.ui.viewcomponents.NAVIGATION_BAR_HEIGHT
+import pl.edu.wat.recipeapp.ui.views.createrecipe.views.EditCookingStepView
 import pl.edu.wat.recipeapp.ui.views.createrecipe.views.EditIngredientsView
 import pl.edu.wat.recipeapp.util.UIEvent
 
@@ -178,6 +179,29 @@ fun CreateRecipeView(
             }
         }
         item {
+            Spacer(
+                modifier = Modifier.height(MaterialTheme.spacing.medium)
+            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(shape = MaterialTheme.shapes.medium)
+                    .background(color = DarkGray)
+                    .padding(all = MaterialTheme.spacing.medium),
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            ) {
+                EditCookingStepView(
+                    onEvent = { viewModel.onEvent(it) },
+                    cookingSteps = viewModel.cookingSteps,
+                    newCookingStepName = viewModel.cookingStepTitle,
+                    newCookingStepDescription = viewModel.cookingStepDescription,
+                )
+            }
+        }
+        item {
+            Spacer(
+                modifier = Modifier.height(MaterialTheme.spacing.medium)
+            )
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { viewModel.onEvent(CreateRecipeEvent.OnSave) }

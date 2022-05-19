@@ -6,6 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import pl.edu.wat.recipeapp.domain.CookingStep
+import pl.edu.wat.recipeapp.domain.CookingStepId
 import pl.edu.wat.recipeapp.domain.Ingredient
 import pl.edu.wat.recipeapp.domain.IngredientId
 import pl.edu.wat.recipeapp.domain.MeasurementUnit
@@ -64,6 +66,32 @@ class DeveloperMenuViewModel @Inject constructor(
                         quantity = 1.5,
                         unit = MeasurementUnit.TEASPOON
                     )
+                ),
+                cookingSteps = listOf(
+                    CookingStep(
+                        id = CookingStepId.generate(),
+                        title = "Przygotuj patelnię",
+                        description = "Na głębokiej patelni rozgrzej około 2 łyżki oliwy z oliwek.",
+                    ),
+                    CookingStep(
+                        id = CookingStepId.generate(),
+                        title = "Wrzuć czosnek, cebulę oraz mięso",
+                        description = "Na rozgrzaną patelnię wrzuć czosnek i cebulę, a po chwili " +
+                                "dodaj mięso, rozdrabniaj je np. widelcem, tak aby nie powstały " +
+                                "grube mięsne grudki.",
+                    ),
+                    CookingStep(
+                        id = CookingStepId.generate(),
+                        title = "Dodaj zioła",
+                        description = "Do mięsa dodaj zioła oraz koncentrat. Całość podgrzewaj " +
+                                "przez chwilę, dodaj passatę (przecier pomidorowy), gotuj na " +
+                                "małym ogniu około 30 minut.",
+                    ),
+                    CookingStep(
+                        id = CookingStepId.generate(),
+                        title = "Ugotuj makaron",
+                        description = "Makaron ugotuj al dente, podawaj go z sosem, serem, i bazylią.",
+                    ),
                 )
             )
             repository.insertRecipe(newRecipe)

@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import pl.edu.wat.recipeapp.ui.views.cooking.CookingView
 import pl.edu.wat.recipeapp.ui.views.createrecipe.CreateRecipeView
 import pl.edu.wat.recipeapp.ui.views.developermenu.DeveloperMenuView
 import pl.edu.wat.recipeapp.ui.views.favourite.FavouriteView
@@ -58,9 +59,19 @@ fun NavigationView(navController: NavHostController) {
                     navController.popBackStack()
                 },
                 onNavigate = {
-                    navController.navigate(it.route.withoutArgs())
+                    navController.navigate(it.route.withArgs(it.args))
                 }
             )
+        }
+        composable(
+            route = NavigationRoute.Cooking.rawRoute + "/{recipeId}",
+            arguments = listOf(
+                navArgument("recipeId") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            CookingView()
         }
         composable(
             route = NavigationRoute.ShoppingListItems.rawRoute + "/{listId}",

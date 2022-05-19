@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
-import pl.edu.wat.recipeapp.data.relations.RecipeWithIngredients
+import pl.edu.wat.recipeapp.data.relations.RecipeWithRelations
 import java.util.UUID
 
 @Dao
@@ -14,6 +14,10 @@ interface RecipeDao {
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecipe(recipe: RecipeEntity)
+
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCookingStep(cookingStep: CookingStepEntity)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -25,13 +29,13 @@ interface RecipeDao {
 
     @Transaction
     @Query("SELECT * FROM recipes WHERE id = :id")
-    suspend fun findRecipe(id: UUID): RecipeWithIngredients
+    suspend fun findRecipe(id: UUID): RecipeWithRelations
 
     @Transaction
     @Query("SELECT * FROM recipes")
-    fun getAllRecipes(): Flow<List<RecipeWithIngredients>>
+    fun getAllRecipes(): Flow<List<RecipeWithRelations>>
 
     @Transaction
     @Query("SELECT * FROM recipes WHERE isFavourite = 1")
-    fun getAllFavouriteRecipes(): Flow<List<RecipeWithIngredients>>
+    fun getAllFavouriteRecipes(): Flow<List<RecipeWithRelations>>
 }

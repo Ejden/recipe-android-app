@@ -19,6 +19,7 @@ import pl.edu.wat.recipeapp.domain.ShoppingListId
 import pl.edu.wat.recipeapp.domain.ShoppingListItem
 import pl.edu.wat.recipeapp.domain.ShoppingListItemId
 import pl.edu.wat.recipeapp.domain.ShoppingListRepository
+import pl.edu.wat.recipeapp.navigation.NavigationRoute
 import pl.edu.wat.recipeapp.util.UIEvent
 import javax.inject.Inject
 
@@ -115,12 +116,20 @@ class RecipeViewModel @Inject constructor(
         if (servings == 1) {
             return
         }
-
         servings--
     }
 
     private fun onStartCookingEvent() {
-        // TODO: Cooking screen
+        viewModelScope.launch {
+            recipe?.let {
+                _uiEvent.send(
+                    UIEvent.Navigate(
+                        route = NavigationRoute.Cooking,
+                        args = listOf(it.id.printable()),
+                    )
+                )
+            }
+        }
     }
 
     private fun onGoBackEvent() {

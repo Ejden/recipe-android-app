@@ -9,6 +9,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import pl.edu.wat.recipeapp.domain.CookingStep
+import pl.edu.wat.recipeapp.domain.CookingStepId
 import pl.edu.wat.recipeapp.domain.Ingredient
 import pl.edu.wat.recipeapp.domain.IngredientId
 import pl.edu.wat.recipeapp.domain.MeasurementUnit
@@ -46,6 +48,9 @@ class CreateRecipeViewModel @Inject constructor(
     var ingredients by mutableStateOf(listOf<Ingredient>())
         private set
 
+    var cookingSteps by mutableStateOf(listOf<CookingStep>())
+        private set
+
     // New ingredient
 
     var ingredientName by mutableStateOf("")
@@ -55,6 +60,14 @@ class CreateRecipeViewModel @Inject constructor(
         private set
 
     var ingredientUnit by mutableStateOf(MeasurementUnit.UNIT)
+        private set
+
+    // New cooking step
+
+    var cookingStepTitle by mutableStateOf("")
+        private set
+
+    var cookingStepDescription by mutableStateOf("")
         private set
 
     fun onEvent(event: CreateRecipeEvent) = when (event) {
@@ -68,11 +81,16 @@ class CreateRecipeViewModel @Inject constructor(
         is CreateRecipeEvent.OnIngredientUnitChange -> ingredientUnit = event.unit
         is CreateRecipeEvent.OnIngredientAdd -> onIngredientAdd()
         is CreateRecipeEvent.OnIngredientRemove -> onIngredientRemove(event.ingredientId)
+        is CreateRecipeEvent.OnCookingStepAdd -> onCookingStepAdd()
+        is CreateRecipeEvent.OnCookingStepDescriptionChange -> cookingStepDescription =
+            event.description
+        is CreateRecipeEvent.OnCookingStepNameChange -> cookingStepTitle = event.name
+        is CreateRecipeEvent.OnCookingStepRemove -> onCookingStepRemove(event.cookingStepId)
     }
 
     private fun onSaveEvent() {
         if (!isValid()) {
-            return
+            return // TODO: show some popup if form is invalid
         }
         viewModelScope.launch {
             val id = RecipeId.generate()
@@ -84,6 +102,7 @@ class CreateRecipeViewModel @Inject constructor(
                     cookingTime = cookingTime.parseInt(),
                     pricing = pricing,
                     ingredients = ingredients,
+                    cookingSteps = cookingSteps,
                 )
             )
             _uiEvent.send(
@@ -145,5 +164,20 @@ class CreateRecipeViewModel @Inject constructor(
 
     private fun onIngredientRemove(id: IngredientId) {
         ingredients = ingredients.filter { it.id != id }
+    }
+
+    private fun onCookingStepAdd() {
+        cookingSteps = cookingSteps + CookingStep(
+            id = CookingStepId.generate(),
+            title = cookingStepTitle,
+            description = cookingStepDescription,
+        )
+        cookingStepTitle = ""
+        cookingStepDescription = ""
+
+    }
+
+    private fun onCookingStepRemove(cookingStepId: CookingStepId) {
+        cookingSteps = cookingSteps.filter { it.id != cookingStepId }
     }
 }
