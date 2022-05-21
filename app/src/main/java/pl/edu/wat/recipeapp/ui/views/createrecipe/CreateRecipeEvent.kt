@@ -1,5 +1,6 @@
 package pl.edu.wat.recipeapp.ui.views.createrecipe
 
+import android.net.Uri
 import pl.edu.wat.recipeapp.domain.CookingStepId
 import pl.edu.wat.recipeapp.domain.IngredientId
 import pl.edu.wat.recipeapp.domain.MeasurementUnit
@@ -18,10 +19,11 @@ sealed class CreateRecipeEvent {
     object OnIngredientAdd : CreateRecipeEvent()
     data class OnIngredientRemove(val ingredientId: IngredientId) : CreateRecipeEvent()
 
-    data class OnCookingStepNameChange(val name: String): CreateRecipeEvent()
-    data class OnCookingStepDescriptionChange(val description: String): CreateRecipeEvent()
+    data class OnCookingStepNameChange(val name: String) : CreateRecipeEvent()
+    data class OnCookingStepDescriptionChange(val description: String) : CreateRecipeEvent()
     object OnCookingStepAdd : CreateRecipeEvent()
     data class OnCookingStepRemove(val cookingStepId: CookingStepId) : CreateRecipeEvent()
 
+    data class OnImageSelect(val imageUri: Uri?) : CreateRecipeEvent()
     object OnSave : CreateRecipeEvent()
 }

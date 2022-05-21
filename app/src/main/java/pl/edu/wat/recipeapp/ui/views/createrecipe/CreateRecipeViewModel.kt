@@ -1,5 +1,6 @@
 package pl.edu.wat.recipeapp.ui.views.createrecipe
 
+import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -70,6 +71,10 @@ class CreateRecipeViewModel @Inject constructor(
     var cookingStepDescription by mutableStateOf("")
         private set
 
+    // Image
+
+    var imageUri by mutableStateOf<Uri?>(null)
+
     fun onEvent(event: CreateRecipeEvent) = when (event) {
         is CreateRecipeEvent.OnCookingTimeChange -> cookingTime = event.cookingTime
         is CreateRecipeEvent.OnDifficultyChange -> difficulty = event.difficulty
@@ -86,6 +91,7 @@ class CreateRecipeViewModel @Inject constructor(
             event.description
         is CreateRecipeEvent.OnCookingStepNameChange -> cookingStepTitle = event.name
         is CreateRecipeEvent.OnCookingStepRemove -> onCookingStepRemove(event.cookingStepId)
+        is CreateRecipeEvent.OnImageSelect -> imageUri = event.imageUri
     }
 
     private fun onSaveEvent() {
@@ -103,6 +109,7 @@ class CreateRecipeViewModel @Inject constructor(
                     pricing = pricing,
                     ingredients = ingredients,
                     cookingSteps = cookingSteps,
+                    imageUri = imageUri,
                 )
             )
             _uiEvent.send(

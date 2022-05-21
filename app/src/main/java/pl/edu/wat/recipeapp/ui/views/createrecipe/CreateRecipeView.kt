@@ -43,6 +43,7 @@ import pl.edu.wat.recipeapp.ui.viewcomponents.DropdownValue
 import pl.edu.wat.recipeapp.ui.viewcomponents.NAVIGATION_BAR_HEIGHT
 import pl.edu.wat.recipeapp.ui.views.createrecipe.views.EditCookingStepView
 import pl.edu.wat.recipeapp.ui.views.createrecipe.views.EditIngredientsView
+import pl.edu.wat.recipeapp.ui.views.createrecipe.views.PickImageView
 import pl.edu.wat.recipeapp.util.UIEvent
 
 @Composable
@@ -202,6 +203,9 @@ fun CreateRecipeView(
             Spacer(
                 modifier = Modifier.height(MaterialTheme.spacing.medium)
             )
+            PickImageView(onEvent = { viewModel.onEvent(it) })
+        }
+        item {
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { viewModel.onEvent(CreateRecipeEvent.OnSave) }

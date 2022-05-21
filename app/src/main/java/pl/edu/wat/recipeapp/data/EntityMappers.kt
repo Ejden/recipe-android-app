@@ -1,5 +1,6 @@
 package pl.edu.wat.recipeapp.data
 
+import android.net.Uri
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import pl.edu.wat.recipeapp.data.recipe.CookingStepEntity
@@ -37,6 +38,7 @@ object RecipeWithRelationsBiMapper : BidirectionalMapper<RecipeWithRelations, Re
         pricing = RecipePricing.valueOf(from.recipe.pricing),
         ingredients = from.ingredients.map { IngredientEntityMapper.toDomain(it) },
         cookingSteps = from.cookingSteps.map { CookingStepEntityMapper.toDomain(it) },
+        imageUri = Uri.parse(from.recipe.imageUri),
     )
 
     override fun toEntity(from: Recipe): RecipeWithRelations = RecipeWithRelations(
@@ -94,7 +96,8 @@ object RecipeMapper : ToEntityMapper<Recipe, RecipeEntity> {
         cookingTime = from.cookingTime,
         portions = from.portions,
         isFavourite = from.isFavourite,
-        pricing = from.pricing.name
+        pricing = from.pricing.name,
+        imageUri = from.imageUri.toString(),
     )
 }
 

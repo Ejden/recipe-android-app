@@ -13,5 +13,6 @@ data class RecipeEntity(
     val cookingTime: Int,
     val portions: Int,
     val isFavourite: Boolean,
-    val pricing: String
+    val pricing: String,
+    val imageUri: String?,
 )

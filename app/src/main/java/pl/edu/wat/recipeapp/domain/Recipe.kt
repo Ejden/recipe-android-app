@@ -1,5 +1,6 @@
 package pl.edu.wat.recipeapp.domain
 
+import android.net.Uri
 import androidx.annotation.StringRes
 import pl.edu.wat.recipeapp.R
 import java.util.UUID
@@ -14,6 +15,7 @@ data class Recipe(
     val pricing: RecipePricing = RecipePricing.LOW_PRICED,
     val ingredients: List<Ingredient> = emptyList(),
     val cookingSteps: List<CookingStep> = emptyList(),
+    val imageUri: Uri? = null,
 )
 
 enum class RecipeDifficulty(

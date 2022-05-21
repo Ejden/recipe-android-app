@@ -27,6 +27,7 @@ import pl.edu.wat.recipeapp.domain.RecipeId
 import pl.edu.wat.recipeapp.ui.theme.LightGray
 import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.spacing
+import pl.edu.wat.recipeapp.ui.viewcomponents.RecipeImageWithFallback
 import java.util.UUID
 
 @Composable
@@ -39,8 +40,8 @@ fun FirstRecipeItemView(
             .fillMaxWidth()
             .height(550.dp)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.spaghetti_bolognese),
+        RecipeImageWithFallback(
+            uri = recipe.imageUri,
             contentScale = ContentScale.Crop,
             contentDescription = recipe.name,
             modifier = Modifier

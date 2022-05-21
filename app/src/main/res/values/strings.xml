@@ -61,4 +61,7 @@
     <string name="cooking_step_name">Cooking Step Name</string>
     <string name="cooking_step_description">Cooking Step Description</string>
     <string name="add_cooking_step">Add Cooking Step</string>
+    <string name="pick_image">Pick Image</string>
+    <string name="grant_permissions">Grant Permissions</string>
+    <string name="grant_permission_rationale">We need your permission to access recipes photos</string>
 </resources>

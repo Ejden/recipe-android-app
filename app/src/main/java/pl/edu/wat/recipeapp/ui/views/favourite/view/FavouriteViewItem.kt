@@ -25,7 +25,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import pl.edu.wat.recipeapp.R
@@ -34,6 +33,7 @@ import pl.edu.wat.recipeapp.ui.theme.DarkBlack
 import pl.edu.wat.recipeapp.ui.theme.LightGray
 import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.spacing
+import pl.edu.wat.recipeapp.ui.viewcomponents.RecipeImageWithFallback
 import pl.edu.wat.recipeapp.ui.views.favourite.FavouriteViewEvent
 
 @Composable
@@ -51,8 +51,8 @@ fun FavouriteViewItem(
             .height(200.dp)
             .clickable { onEvent(FavouriteViewEvent.ShowRecipe(favourite)) },
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.spaghetti_bolognese),
+        RecipeImageWithFallback(
+            uri = favourite.imageUri,
             contentDescription = favourite.name,
             contentScale = ContentScale.Crop,
         )

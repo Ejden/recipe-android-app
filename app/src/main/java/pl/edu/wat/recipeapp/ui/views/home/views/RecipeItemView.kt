@@ -32,6 +32,7 @@ import pl.edu.wat.recipeapp.ui.theme.DarkBlack
 import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.Yellow
 import pl.edu.wat.recipeapp.ui.theme.spacing
+import pl.edu.wat.recipeapp.ui.viewcomponents.RecipeImageWithFallback
 import pl.edu.wat.recipeapp.ui.views.home.HomeEvent
 
 @Composable
@@ -53,8 +54,8 @@ fun RecipeItemView(
                 .background(Yellow)
                 .height(200.dp)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.spaghetti_bolognese),
+            RecipeImageWithFallback(
+                uri = recipe.imageUri,
                 contentDescription = recipe.name,
                 modifier = Modifier
                     .clickable { onEvent(HomeEvent.ShowRecipe(recipe)) },

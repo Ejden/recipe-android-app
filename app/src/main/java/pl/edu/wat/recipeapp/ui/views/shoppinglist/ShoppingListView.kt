@@ -35,6 +35,7 @@ import pl.edu.wat.recipeapp.ui.theme.LightGray
 import pl.edu.wat.recipeapp.ui.theme.VeryLightGrayWithAlpha
 import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.spacing
+import pl.edu.wat.recipeapp.ui.viewcomponents.RecipeImageWithFallback
 import pl.edu.wat.recipeapp.ui.views.shoppinglist.view.ShoppingListHeaderView
 import pl.edu.wat.recipeapp.ui.views.shoppinglist.view.ShoppingListItemView
 import pl.edu.wat.recipeapp.util.UIEvent
@@ -78,8 +79,8 @@ fun ShoppingListView(
                         .fillMaxWidth()
                         .height(200.dp),
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.spaghetti_bolognese),
+                    RecipeImageWithFallback(
+                        uri = shoppingList.recipe.imageUri,
                         contentDescription = viewModel.shoppingList?.recipe?.name ?: "",
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop,

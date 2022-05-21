@@ -92,7 +92,8 @@ class DeveloperMenuViewModel @Inject constructor(
                         title = "Ugotuj makaron",
                         description = "Makaron ugotuj al dente, podawaj go z sosem, serem, i bazylią.",
                     ),
-                )
+                ),
+                imageUri = null,
             )
             repository.insertRecipe(newRecipe)
         }

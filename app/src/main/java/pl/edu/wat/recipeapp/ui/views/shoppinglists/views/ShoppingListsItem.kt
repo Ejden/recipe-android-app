@@ -23,6 +23,7 @@ import pl.edu.wat.recipeapp.R
 import pl.edu.wat.recipeapp.domain.ShoppingList
 import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.spacing
+import pl.edu.wat.recipeapp.ui.viewcomponents.RecipeImageWithFallback
 
 @Composable
 fun ShoppingListItem(
@@ -35,8 +36,8 @@ fun ShoppingListItem(
         modifier = modifier
             .clickable { onClick(shoppingList) }
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.spaghetti_bolognese),
+        RecipeImageWithFallback(
+            uri = shoppingList.recipe.imageUri,
             contentDescription = shoppingList.recipe.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier

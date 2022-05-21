@@ -1,6 +1,5 @@
 package pl.edu.wat.recipeapp.ui.views.recipe.views
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +25,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import pl.edu.wat.recipeapp.R
@@ -35,6 +33,7 @@ import pl.edu.wat.recipeapp.ui.theme.DarkBlack
 import pl.edu.wat.recipeapp.ui.theme.VeryLightGrayWithAlpha
 import pl.edu.wat.recipeapp.ui.theme.White
 import pl.edu.wat.recipeapp.ui.theme.spacing
+import pl.edu.wat.recipeapp.ui.viewcomponents.RecipeImageWithFallback
 import pl.edu.wat.recipeapp.ui.views.recipe.RecipeEvent
 
 @Composable
@@ -47,8 +46,8 @@ fun RecipeImageBoxView(
             .height(550.dp)
             .fillMaxWidth()
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.spaghetti_bolognese),
+        RecipeImageWithFallback(
+            uri = recipe.imageUri,
             contentDescription = "",
             contentScale = ContentScale.Crop,
             modifier = Modifier

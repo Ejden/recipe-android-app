@@ -80,4 +80,5 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     implementation "androidx.room:room-ktx:2.4.2"
+    implementation "com.google.accompanist:accompanist-permissions:0.24.9-beta"
 }
